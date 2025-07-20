@@ -1,22 +1,25 @@
 # SharkMath MCP
 
-A comprehensive Model Context Protocol (MCP) server providing 70+ mathematical functions across 12 domains. This MCP server integrates seamlessly with VS Code Copilot and other MCP-compatible clients to provide powerful mathematical computation capabilities.
+A comprehensive Model Context Protocol (MCP) server providing 150+ mathematical functions consolidated into 15 powerful tools across all mathematical domains. This MCP server integrates seamlessly with VS Code Copilot and other MCP-compatible clients to provide powerful mathematical computation capabilities through parameter-based routing.
 
 ## 🚀 Features
 
-### 12 Mathematical Domains
-- **Arithmetic Operations** - Basic math operations and expression evaluation
-- **Power & Root Operations** - Powers, squares, cubes, and nth roots
-- **Logarithmic & Exponential** - Natural log, base-10 log, custom base log, exponential
-- **Hyperbolic Functions** - sinh, cosh, tanh with overflow protection
-- **Statistical Functions** - mean, median, mode, standard deviation, variance
-- **Precision & Rounding** - Floor, ceiling, truncation, absolute value
-- **Trigonometric Functions** - Complete trig suite with degree/radian support
-- **Combinatorial Mathematics** - Factorial, permutations, combinations, Fibonacci
-- **Number Theory** - GCD, LCM, prime checking, prime factorization
-- **Unit Conversions** - Temperature, length, weight, volume conversions
-- **Advanced Calculator** - Quadratic solver, 2D geometry, compound interest
-- **Matrix Operations** - Matrix addition, multiplication, determinant, transpose
+### 15 Consolidated Mathematical Tools
+- **`calculate_arithmetic`** - Basic arithmetic operations, expression evaluation, and power operations
+- **`calculate_trigonometry`** - Complete trigonometric and inverse functions with degree/radian support
+- **`calculate_statistics`** - Statistical operations including central tendency, dispersion, and percentiles
+- **`convert_units`** - Universal unit converter supporting 80+ conversions across all measurement types
+- **`calculate_logarithmic`** - Logarithmic and exponential functions with domain validation
+- **`calculate_hyperbolic`** - Hyperbolic functions with overflow protection
+- **`format_precision`** - Number formatting including rounding, floor, ceiling, and absolute value
+- **`analyze_numbers`** - Number theory and combinatorial mathematics (primes, GCD, LCM, factorial, etc.)
+- **`solve_equations`** - Equation solvers for quadratic and linear equations
+- **`calculate_geometry_2d`** - 2D geometry calculations for distance, slope, areas, and perimeters
+- **`manipulate_matrices`** - Matrix operations including addition, multiplication, determinant, and transpose
+- **`financial_calculations`** - Financial and business calculations including interest, loans, and investment analysis
+- **`computer_science_tools`** - Programming utilities including base conversions, hash functions, and algorithm analysis
+- **`data_analysis`** - Advanced statistical analysis including correlation, distribution analysis, and outlier detection
+- **`utility_functions`** - Helper functions providing mathematical constants, validation, and operation help
 
 ## 📦 Installation
 
@@ -63,59 +66,103 @@ Configure the MCP server in your VS Code settings (`.vscode/mcp.json`):
 
 ## 📚 API Reference
 
-### Arithmetic Operations
-- `add(a, b)` - Addition
-- `subtract(a, b)` - Subtraction  
-- `multiply(a, b)` - Multiplication
-- `divide(a, b)` - Division with zero-division protection
-- `calculate(expression)` - Safe expression evaluation
+SharkMath uses **parameter-based routing** where each consolidated tool accepts an `operation` parameter to specify the desired function.
 
-### Statistical Functions
-- `mean(numbers)` - Arithmetic mean
-- `median(numbers)` - Median value
-- `mode(numbers)` - Most frequent value
-- `standard_deviation(numbers)` - Standard deviation
-- `variance(numbers)` - Variance calculation
+### Arithmetic Operations - `calculate_arithmetic`
+- `operation="add"` - Addition: `a + b`
+- `operation="subtract"` - Subtraction: `a - b`
+- `operation="multiply"` - Multiplication: `a * b`
+- `operation="divide"` - Division with zero-division protection: `a / b`
+- `operation="calculate"` - Safe expression evaluation
+- `operation="power"` - Exponentiation: `base^exponent`
+- `operation="square"` - Square: `n²`
+- `operation="cube"` - Cube: `n³`
+- `operation="square_root"` - Square root: `√n`
 
-### Matrix Operations
-- `matrix_add(matrix1, matrix2)` - Matrix addition
-- `matrix_multiply(matrix1, matrix2)` - Matrix multiplication
-- `matrix_determinant(matrix)` - Determinant calculation
-- `matrix_transpose(matrix)` - Matrix transpose
+### Statistical Functions - `calculate_statistics`
+- `operation="mean"` - Arithmetic mean
+- `operation="median"` - Median value
+- `operation="mode"` - Most frequent value
+- `operation="standard_deviation"` - Standard deviation
+- `operation="variance"` - Variance calculation
+- `operation="range_stats"` - Min, max, and range
+- `operation="percentile"` - Percentile calculation (requires percentile parameter)
 
-### Unit Conversions
-- Temperature: `celsius_to_fahrenheit()`, `fahrenheit_to_celsius()`
-- Length: `meters_to_feet()`, `inches_to_centimeters()`
-- Weight: `kilograms_to_pounds()`, `pounds_to_kilograms()`
-- Volume: `liters_to_gallons()`, `gallons_to_liters()`
+### Trigonometric Functions - `calculate_trigonometry`
+- `operation="sin"` - Sine function
+- `operation="cos"` - Cosine function
+- `operation="tan"` - Tangent function
+- `operation="asin"` - Inverse sine (arcsine)
+- `operation="acos"` - Inverse cosine (arccosine)
+- `operation="atan"` - Inverse tangent (arctangent)
+- `operation="atan2"` - Two-argument arctangent (requires x and y parameters)
 
-*[See complete API documentation for all 70+ functions]*
+### Matrix Operations - `manipulate_matrices`
+- `operation="add"` - Matrix addition
+- `operation="multiply"` - Matrix multiplication
+- `operation="determinant"` - Determinant calculation
+- `operation="transpose"` - Matrix transpose
+
+### Unit Conversions - `convert_units`
+- **Energy**: watts, kilowatts, horsepower, joules, calories, btu
+- **Temperature**: celsius, fahrenheit
+- **Length**: meters, feet, inches, centimeters, kilometers, miles
+- **Weight**: kilograms, pounds
+- **Volume**: liters, gallons
+- **Time**: seconds, minutes, hours, days, weeks, months, years
+- **Area**: square_meters, square_feet, acres, hectares
+- **Speed**: mps, kmh, mph, knots
+- **Pressure**: pascals, atmospheres, psi, bar
+- **Data**: bytes, kilobytes, megabytes, gigabytes, terabytes
+
+### Financial Calculations - `financial_calculations`
+- `operation="compound_interest"` - Compound interest calculation
+- `operation="simple_interest"` - Simple interest calculation
+- `operation="present_value"` - Present value calculation
+- `operation="future_value"` - Future value calculation
+- `operation="loan_payment"` - Monthly loan payment
+- `operation="roi"` - Return on investment
+- `operation="mortgage_payment"` - Mortgage payment calculation
+
+*[See complete API documentation for all 15 consolidated tools and 150+ operations]*
 
 ## 🏗️ Architecture
 
-The project uses a modular architecture with FastMCP:
+The project uses a **consolidated tool architecture** with parameter-based routing and FastMCP:
 
 ```
-sharkmath_server.py          # Main MCP server
-├── arithmetic.py            # Basic operations
-├── power_operations.py      # Powers and roots
-├── logarithmic.py          # Log and exponential
-├── hyperbolic.py           # Hyperbolic functions
-├── stats_operations.py     # Statistical functions
-├── precision.py            # Rounding utilities
-├── trigonometric.py        # Trig functions
-├── combinatorics.py        # Combinatorial math
-├── number_theory.py        # Number theory
-├── conversions.py          # Unit conversions
-├── advanced_calc.py        # Advanced calculations
-└── matrix_operations.py    # Matrix operations
+sharkmath_server.py          # Main MCP server (15 consolidated tools)
+├── arithmetic.py            # calculate_arithmetic (arithmetic + power operations)
+├── trigonometric.py         # calculate_trigonometry (trig + inverse trig functions)
+├── stats_operations.py      # calculate_statistics (statistical operations + percentiles)
+├── convert_units.py         # convert_units (80+ unit conversions)
+├── logarithmic.py           # calculate_logarithmic (log + exponential functions)
+├── hyperbolic.py            # calculate_hyperbolic (hyperbolic functions)
+├── precision.py             # format_precision (rounding + precision utilities)
+├── number_theory.py         # analyze_numbers (number theory + combinatorics)
+├── solve_equations.py       # solve_equations (quadratic + linear solvers)
+├── calculate_geometry_2d.py # calculate_geometry_2d (2D geometry calculations)
+├── matrix_operations.py     # manipulate_matrices (matrix operations)
+├── financial_calculations.py # financial_calculations (financial + business calcs)
+├── computer_science_tools.py # computer_science_tools (CS + programming utilities)
+├── data_analysis.py         # data_analysis (advanced statistical analysis)
+└── utility_functions.py     # utility_functions (constants + validation + help)
 ```
 
-Each module implements:
-- Function definitions with proper error handling
-- `register_tools(mcp)` function for MCP integration
-- Comprehensive input validation
-- Consistent return formatting (✅/❌ prefixes)
+### Consolidated Tool Pattern
+Each module implements parameter-based routing:
+- **Single tool registration** with `operation` parameter
+- **Function routing** based on operation parameter value
+- **Comprehensive error handling** with ✅/❌ prefixes
+- **Input validation** specific to each mathematical operation
+- **Consistent return formatting** across all operations
+
+### Key Architecture Benefits
+- **Reduced tool count**: 70+ individual tools → 15 consolidated tools
+- **Improved maintainability**: Logical grouping of related functions
+- **Better performance**: Single tool registration per domain
+- **Enhanced usability**: Intuitive parameter-based operation selection
+- **MCP compatibility**: Avoids tool registration limits
 
 ## 🧪 Testing
 
@@ -126,12 +173,26 @@ cd Tests
 python test_runner.py
 ```
 
-Individual module testing:
+### Individual Consolidated Tool Testing
+Each consolidated tool has its own dedicated test suite:
 ```bash
-python test_arithmetic.py
-python test_matrix_operations.py
-# ... etc for each module
+python test_calculate_arithmetic.py      # 45+ arithmetic operation tests
+python test_calculate_trigonometry.py    # 42+ trigonometric function tests
+python test_calculate_statistics.py      # 37+ statistical operation tests
+python test_convert_units.py             # 51+ unit conversion tests
+python test_manipulate_matrices.py       # 31+ matrix operation tests
+python test_financial_calculations.py    # 31+ financial calculation tests
+python test_computer_science_tools.py    # 41+ CS utility tests
+python test_data_analysis.py             # 36+ advanced analysis tests
+# ... and more for each consolidated tool
 ```
+
+### Test Coverage
+- **500+ individual tests** across all consolidated tools
+- **Parameter validation testing** for all operation types
+- **Error condition testing** with comprehensive edge case coverage
+- **Integration testing** with MCP server registration verification
+- **Regression testing** ensuring all original functionality preserved
 
 ## 🤝 Contributing
 
@@ -144,11 +205,32 @@ python test_matrix_operations.py
 
 ### Adding New Functions
 
-1. Choose the appropriate module (or create a new one)
-2. Implement the function with proper error handling
-3. Add the function to the module's `register_tools()` function
-4. Import and register in `sharkmath_server.py`
-5. Add comprehensive tests
+1. Choose the appropriate consolidated tool module
+2. Add your operation to the module's operation routing dictionary
+3. Implement the function with proper error handling and validation
+4. Add comprehensive test coverage to the tool's test suite
+5. Update documentation with the new operation parameter
+
+### Example: Adding a New Operation
+```python
+# In arithmetic.py - adding a new operation
+def calculate_arithmetic(operation: str, a: float = None, b: float = None, ...):
+    operations = {
+        "add": lambda: a + b,
+        "subtract": lambda: a - b,
+        "new_operation": lambda: your_new_function(a, b),  # Add here
+        # ... other operations
+    }
+    
+    if operation not in operations:
+        return f"❌ Unsupported operation: {operation}"
+    
+    try:
+        result = operations[operation]()
+        return f"✅ {operation.title()} result: {result}"
+    except Exception as e:
+        return f"❌ Error in {operation}: {str(e)}"
+```
 
 ## 📋 Requirements
 
@@ -169,9 +251,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 📞 Support
 
 - Create an issue for bug reports or feature requests
-- Check the [Tests/TEST_RESULTS.md](Tests/TEST_RESULTS.md) for function validation
-- Review [sharkmath_tasklist.md](sharkmath_tasklist.md) for development roadmap
+- Check the [Tests/](Tests/) directory for comprehensive function validation
+- Review [Docs/sharkmath_tools_refactor.md](Docs/Archive/sharkmath_tools_refactor.md) for architecture details
+- All 15 consolidated tools with 150+ operations are thoroughly tested and documented
 
 ---
 
-**SharkMath MCP** - Empowering AI with comprehensive mathematical capabilities 🦈📊
+**SharkMath MCP** - Empowering AI with comprehensive mathematical capabilities through efficient consolidated tools 🦈📊
