@@ -4,7 +4,7 @@ Testing consolidated tools with FastMCP integration.
 """
 
 from mcp.server.fastmcp import FastMCP
-from convert_units_prototype import register_tools as register_convert_units
+from convert_units import register_tools as register_convert_units
 
 # Create MCP server
 mcp = FastMCP("SharkMath Server - Phase 1 Prototype")

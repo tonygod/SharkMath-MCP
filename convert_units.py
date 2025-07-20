@@ -1,6 +1,6 @@
 """
 Convert Units - Consolidated Unit Conversion Tool for SharkMath MCP Server
-Prototype implementation demonstrating parameter-based routing for 42+ unit conversions.
+Production implementation with parameter-based routing for 42+ unit conversions.
 """
 
 from consolidated_tool_template import ConversionTool, validate_positive

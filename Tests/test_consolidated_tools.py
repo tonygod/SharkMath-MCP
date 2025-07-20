@@ -3,9 +3,13 @@ Consolidated Tools Test Suite for SharkMath MCP Server
 Tests for parameter-based routing tools and consolidated functionality.
 """
 
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import unittest
 import asyncio
-from convert_units_prototype import register_tools as register_convert_units
+from convert_units import register_tools as register_convert_units
 
 class TestConsolidatedTools(unittest.TestCase):
     """Test suite for consolidated SharkMath tools."""
