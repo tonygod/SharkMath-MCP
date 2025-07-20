@@ -29,10 +29,11 @@ mcp = FastMCP("Server Name")
 - Virtual environment in `mcp-env/` directory
 - VS Code MCP configuration: `uv --directory . run sharkmath_server.py`
 
-### SharkMath Modular Architecture
+### SharkMath Consolidated Architecture
 - **Main server pattern** - `sharkmath_server.py` imports and registers tools from modules
 - **Module registration** - Each module has `register_tools(mcp)` function
 - **Dual import context** - Handles both direct execution and module imports
+- **Consolidated tools** - Parameter-based routing reduces tool count from 70+ to 18
 - **Consistent error handling** - All functions use ✅/❌ prefixes
 - **Domain validation** - Input validation specific to each mathematical operation
 
@@ -56,20 +57,19 @@ uv run SharkMath/sharkmath_server.py
 - Always handle JSON parsing errors in tools that generate content
 
 ### File Organization
-- **Root level** - Modular mathematical calculation MCP server with specialized function modules
-  - `arithmetic.py` - Basic operations (add, subtract, multiply, divide, calculate)
-  - `power_operations.py` - Power and root functions (power, square, cube, square_root, cube_root, nth_root)
+- **Root level** - Consolidated mathematical calculation MCP server with parameter-based routing
+  - `arithmetic.py` - **CONSOLIDATED**: `calculate_arithmetic` - 11 operations (add, subtract, multiply, divide, calculate, power, square, cube, square_root, cube_root, nth_root)
+  - `trigonometric.py` - **CONSOLIDATED**: `calculate_trigonometry` - 10 operations (sin, cos, tan, asin, acos, atan, atan2 with radians/degrees support)
+  - `stats_operations.py` - **CONSOLIDATED**: `calculate_statistics` - 7 operations (mean, median, mode, standard_deviation, variance, range_stats, percentile)
+  - `convert_units.py` - **CONSOLIDATED**: `convert_units` - 42 unit conversions (temperature, length, weight, volume, energy, time, angle)
   - `logarithmic.py` - Logarithmic and exponential functions (natural_log, log_base_10, log_base, exponential)
   - `hyperbolic.py` - Hyperbolic functions (sinh, cosh, tanh)
-  - `statistics.py` - Statistical functions (mean, median, mode, standard_deviation, variance, range_stats)
   - `precision.py` - Rounding and precision utilities (round_to_decimal, floor, ceiling, truncate, absolute)
-  - `trigonometric.py` - Trigonometric functions (sin, cos, tan, sin_degrees, cos_degrees, tan_degrees, asin, acos, atan, atan2)
   - `combinatorics.py` - Combinatorial mathematics (factorial, permutation, combination, fibonacci)
   - `number_theory.py` - Number theory functions (gcd, lcm, is_prime, prime_factors, is_perfect_square)
-  - `conversions.py` - Unit conversion functions (degrees_to_radians, radians_to_degrees, celsius_to_fahrenheit, fahrenheit_to_celsius, meters_to_feet, feet_to_meters, inches_to_centimeters, centimeters_to_inches, kilometers_to_miles, miles_to_kilometers, kilograms_to_pounds, pounds_to_kilograms, liters_to_gallons, gallons_to_liters)
   - `advanced_calc.py` - Advanced calculator functions (solve_quadratic, distance_2d, slope, compound_interest)
   - `matrix_operations.py` - Matrix calculations (matrix_add, matrix_multiply, matrix_determinant, matrix_transpose)
-- **Tests** - Tests used to verify functionality during implementation of mathematical tools  
+- **Tests** - Individual test suites per consolidated tool for comprehensive coverage  
 
 ### Error Handling
 - Tools return descriptive error messages (❌ prefix)
@@ -87,20 +87,42 @@ uv run SharkMath/sharkmath_server.py
 - **Tools** execute functions and return status/results
 
 ### Mathematical Tools (SharkMath Server)
-#### **Arithmetic Operations** (`arithmetic.py`)
-- **add(a, b)** - Addition of two numbers
-- **subtract(a, b)** - Subtraction (a - b)
-- **multiply(a, b)** - Multiplication of two numbers
-- **divide(a, b)** - Division with zero-division protection
-- **calculate(expression)** - Safe evaluation of mathematical expressions with operator validation
+#### **Consolidated Arithmetic Operations** (`arithmetic.py`)
+- **calculate_arithmetic(operation, a, b, expression, base, exponent, n, root)** - Consolidated tool with 11 operations:
+  - add, subtract, multiply, divide (basic arithmetic)
+  - calculate (expression evaluation)
+  - power, square, cube (exponentiation)
+  - square_root, cube_root, nth_root (root extraction)
 
-#### **Power and Root Operations** (`power_operations.py`)
-- **power(base, exponent)** - Calculate base raised to the power of exponent
-- **square(n)** - Calculate n²
-- **cube(n)** - Calculate n³
-- **square_root(n)** - Calculate √n with negative number validation
-- **cube_root(n)** - Calculate ∛n (handles negative numbers)
-- **nth_root(n, root)** - Calculate nth root with domain validation
+#### **Consolidated Trigonometric Functions** (`trigonometric.py`)
+- **calculate_trigonometry(operation, angle, angle_unit, value, y, x)** - Consolidated tool with 10 operations:
+  - sin, cos, tan (basic trig functions with radians/degrees support)
+  - asin, acos, atan (inverse trig functions)
+  - atan2 (two-argument arctangent)
+
+#### **Consolidated Statistical Functions** (`stats_operations.py`)
+- **calculate_statistics(operation, numbers, percentile)** - Consolidated tool with 7 operations:
+  - mean, median, mode (central tendency)
+  - standard_deviation, variance (spread measures)
+  - range_stats (min, max, range)
+  - percentile (0-100th percentile calculation)
+
+#### **Consolidated Unit Conversions** (`convert_units.py`)
+- **convert_units(from_unit, to_unit, value, time_hours)** - Consolidated tool with 42 conversions:
+  - Temperature: celsius ↔ fahrenheit
+  - Length: meters ↔ feet, kilometers ↔ miles, inches ↔ centimeters
+  - Weight: kilograms ↔ pounds
+  - Volume: liters ↔ gallons  
+  - Energy: watts ↔ kilowatts, horsepower ↔ watts, joules ↔ calories/BTU
+  - Time: hours ↔ minutes/days, days ↔ weeks/months/years
+  - Angle: degrees ↔ radians
+- **floor(n)** - Floor function (largest integer ≤ n)
+#### **Precision and Rounding Functions** (`precision.py`)
+- **round_to_decimal(n, places)** - Round to specified decimal places
+- **floor(n)** - Floor function (largest integer ≤ n)
+- **ceiling(n)** - Ceiling function (smallest integer ≥ n)
+- **truncate(n)** - Truncate decimal part (round toward zero)
+- **absolute(n)** - Absolute value calculation
 
 #### **Logarithmic and Exponential Functions** (`logarithmic.py`)
 - **natural_log(n)** - Calculate ln(n) with domain validation (n > 0)
@@ -112,33 +134,6 @@ uv run SharkMath/sharkmath_server.py
 - **sinh(x)** - Hyperbolic sine with overflow protection (|x| ≤ 700)
 - **cosh(x)** - Hyperbolic cosine with overflow protection (|x| ≤ 700)
 - **tanh(x)** - Hyperbolic tangent (naturally bounded between -1 and 1)
-
-#### **Statistical Functions** (`statistics.py`)
-- **mean(numbers)** - Calculate arithmetic mean from comma-separated values
-- **median(numbers)** - Calculate median from comma-separated values
-- **mode(numbers)** - Calculate mode (most frequent value)
-- **standard_deviation(numbers)** - Calculate standard deviation
-- **variance(numbers)** - Calculate variance  
-- **range_stats(numbers)** - Calculate min, max, and range statistics
-
-#### **Precision and Rounding Functions** (`precision.py`)
-- **round_to_decimal(n, places)** - Round to specified decimal places
-- **floor(n)** - Floor function (largest integer ≤ n)
-- **ceiling(n)** - Ceiling function (smallest integer ≥ n)
-- **truncate(n)** - Truncate decimal part (round toward zero)
-- **absolute(n)** - Absolute value calculation
-
-#### **Trigonometric Functions** (`trigonometric.py`)
-- **sin(angle_radians)** - Sine function with radian input
-- **cos(angle_radians)** - Cosine function with radian input
-- **tan(angle_radians)** - Tangent function with undefined value detection
-- **sin_degrees(angle_degrees)** - Sine function with degree input
-- **cos_degrees(angle_degrees)** - Cosine function with degree input
-- **tan_degrees(angle_degrees)** - Tangent function with degree input
-- **asin(value)** - Arcsine with domain validation [-1, 1]
-- **acos(value)** - Arccosine with domain validation [-1, 1]
-- **atan(value)** - Arctangent function
-- **atan2(y, x)** - Two-argument arctangent
 
 #### **Combinatorial Mathematics Functions** (`combinatorics.py`)
 - **factorial(n)** - Calculate n! with non-negative integer validation
@@ -153,22 +148,6 @@ uv run SharkMath/sharkmath_server.py
 - **prime_factors(n)** - List all prime factors with efficient factorization
 - **is_perfect_square(n)** - Check if number is perfect square with exact calculation
 
-#### **Unit Conversion Functions** (`conversions.py`)
-- **degrees_to_radians(degrees)** - Convert angle measurements from degrees to radians
-- **radians_to_degrees(radians)** - Convert angle measurements from radians to degrees
-- **celsius_to_fahrenheit(celsius)** - Convert temperature from Celsius to Fahrenheit
-- **fahrenheit_to_celsius(fahrenheit)** - Convert temperature from Fahrenheit to Celsius
-- **meters_to_feet(meters)** - Convert length from meters to feet
-- **feet_to_meters(feet)** - Convert length from feet to meters
-- **inches_to_centimeters(inches)** - Convert length from inches to centimeters
-- **centimeters_to_inches(centimeters)** - Convert length from centimeters to inches
-- **kilometers_to_miles(kilometers)** - Convert distance from kilometers to miles
-- **miles_to_kilometers(miles)** - Convert distance from miles to kilometers
-- **kilograms_to_pounds(kilograms)** - Convert weight from kilograms to pounds
-- **pounds_to_kilograms(pounds)** - Convert weight from pounds to kilograms
-- **liters_to_gallons(liters)** - Convert volume from liters to US gallons
-- **gallons_to_liters(gallons)** - Convert volume from US gallons to liters
-
 #### **Advanced Calculator Functions** (`advanced_calc.py`)
 - **solve_quadratic(a, b, c)** - Solve quadratic equations ax² + bx + c = 0 using quadratic formula, handles linear equations, complex solutions, and special cases
 - **distance_2d(x1, y1, x2, y2)** - Calculate Euclidean distance between two points in 2D space using distance formula
@@ -181,18 +160,23 @@ uv run SharkMath/sharkmath_server.py
 - **matrix_determinant(matrix)** - Calculate determinant of square matrices up to 10×10 using recursive expansion
 - **matrix_transpose(matrix)** - Transpose matrix (swap rows and columns) with JSON input/output format
 
+#### **Matrix Operations** (`matrix_operations.py`)
+- **matrix_add(matrix1, matrix2)** - Add two matrices of the same dimensions with JSON input format (e.g., "[[1,2],[3,4]]")
+- **matrix_multiply(matrix1, matrix2)** - Multiply two matrices with compatibility validation (columns of first must equal rows of second)
+- **matrix_determinant(matrix)** - Calculate determinant of square matrices up to 10×10 using recursive expansion
+- **matrix_transpose(matrix)** - Transpose matrix (swap rows and columns) with JSON input/output format
+
 ## Key Files for Context
-- `sharkmath_server.py` - Main mathematical MCP server with modular imports
-- `arithmetic.py` - Basic arithmetic operations module
-- `power_operations.py` - Power and root functions module
+- `sharkmath_server.py` - Main mathematical MCP server with consolidated imports
+- `arithmetic.py` - **CONSOLIDATED**: Basic arithmetic and power operations module
+- `trigonometric.py` - **CONSOLIDATED**: Trigonometric and inverse trigonometric functions module  
+- `stats_operations.py` - **CONSOLIDATED**: Statistical calculations module
+- `convert_units.py` - **CONSOLIDATED**: Unit conversion functions (temperature, length, weight, volume, energy, time, angle)
 - `logarithmic.py` - Logarithmic and exponential functions module
 - `hyperbolic.py` - Hyperbolic functions module
-- `statistics.py` - Statistical calculations module
 - `precision.py` - Rounding and precision utilities module
-- `trigonometric.py` - Trigonometric and inverse trigonometric functions module
 - `combinatorics.py` - Combinatorial mathematics and factorial operations module
 - `number_theory.py` - Number theory and prime mathematics module
-- `conversions.py` - Unit conversion functions (degrees/radians, celsius/fahrenheit, meters/feet, kilometers/miles, kilograms/pounds, liters/gallons)
 - `advanced_calc.py` - Advanced calculator functions (quadratic solver, 2D geometry, financial calculations)
 - `matrix_operations.py` - Matrix operations and linear algebra functions
 - `sharkmath_tasklist.md` - Development roadmap and task tracking

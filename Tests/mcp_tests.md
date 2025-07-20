@@ -1,102 +1,112 @@
 # SharkMath MCP Server - AI Agent Test Prompts
 
 ## Overview
-This document contains comprehensive mathematical questions designed to test the SharkMath MCP server through AI agent interactions. Each prompt is designed to trigger specific MCP tools and validate their functionality in real-world usage scenarios.
+This document contains comprehensive mathematical questions designed to test the SharkMath MCP server through AI agent interactions. Each prompt is designed to trigger specific **consolidated MCP tools** and validate their functionality in real-world usage scenarios.
+
+**Note**: As of Phase 2, the server uses consolidated tools with parameter-based routing instead of individual tools.
+
+## Consolidated Tool Architecture
+
+### **Primary Consolidated Tools:**
+1. **`calculate_arithmetic`** - All arithmetic and power operations (11 operations)
+2. **`calculate_trigonometry`** - All trigonometric functions (10 operations)  
+3. **`calculate_statistics`** - All statistical operations + percentiles (6+ operations)
+4. **`convert_units`** - All unit conversions (28 conversions)
 
 ## Test Categories
 
-### 1. Basic Arithmetic Operations
+### 1. Arithmetic Operations (calculate_arithmetic tool)
 
 #### Test 1.1 - Simple Addition
 **Prompt**: "What is 47 + 293?"
-**Expected MCP Tool**: `add`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='add'
 **Test ID**: ARITH_001
 
 #### Test 1.2 - Subtraction with Negative Result
 **Prompt**: "Calculate 125 - 347. What's the result?"
-**Expected MCP Tool**: `subtract`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='subtract'
 **Test ID**: ARITH_002
 
 #### Test 1.3 - Multiplication of Decimals
 **Prompt**: "I need to multiply 12.5 by 8.4. Can you help?"
-**Expected MCP Tool**: `multiply`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='multiply'
 **Test ID**: ARITH_003
 
 #### Test 1.4 - Division with Remainder
 **Prompt**: "Divide 157 by 23. What do you get?"
-**Expected MCP Tool**: `divide`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='divide'
 **Test ID**: ARITH_004
 
 #### Test 1.5 - Division by Zero (Error Handling)
 **Prompt**: "What happens when I divide 50 by 0?"
-**Expected MCP Tool**: `divide`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='divide'
 **Test ID**: ARITH_005
 
 #### Test 1.6 - Complex Expression
 **Prompt**: "Evaluate this expression: (15 + 3) * 4 - 8 / 2"
-**Expected MCP Tool**: `calculate`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
 **Test ID**: ARITH_006
 
-### 2. Power and Root Operations
+### 2. Power and Root Operations (calculate_arithmetic tool)
 
 #### Test 2.1 - Basic Exponentiation
 **Prompt**: "What is 3 raised to the power of 7?"
-**Expected MCP Tool**: `power`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='power'
 **Test ID**: POWER_001
 
 #### Test 2.2 - Square Calculation
 **Prompt**: "I need to find the square of 23."
-**Expected MCP Tool**: `square`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='square'
 **Test ID**: POWER_002
 
 #### Test 2.3 - Perfect Square Root
 **Prompt**: "What's the square root of 169?"
-**Expected MCP Tool**: `square_root`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='square_root'
 **Test ID**: POWER_003
 
 #### Test 2.4 - Cube Calculation
 **Prompt**: "Calculate 12 cubed."
-**Expected MCP Tool**: `cube`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='cube'
 **Test ID**: POWER_004
 
 #### Test 2.5 - Cube Root
 **Prompt**: "Find the cube root of 216."
-**Expected MCP Tool**: `cube_root`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='cube_root'
 **Test ID**: POWER_005
 
 #### Test 2.6 - Fourth Root
 **Prompt**: "What is the 4th root of 81?"
-**Expected MCP Tool**: `nth_root`
+**Expected MCP Tool**: `calculate_arithmetic` with operation='nth_root'
 **Test ID**: POWER_006
 
-### 3. Trigonometric Functions
+### 3. Trigonometric Functions (calculate_trigonometry tool)
 
 #### Test 3.1 - Sine of Common Angle
 **Prompt**: "What is the sine of π/2 radians?"
-**Expected MCP Tool**: `sin`
+**Expected MCP Tool**: `calculate_trigonometry` with operation='sin'
 **Test ID**: TRIG_001
 
 #### Test 3.2 - Cosine in Degrees
 **Prompt**: "Calculate the cosine of 60 degrees."
-**Expected MCP Tool**: `cos_degrees`
+**Expected MCP Tool**: `calculate_trigonometry` with operation='cos' and angle_unit='degrees'
 **Test ID**: TRIG_002
 
 #### Test 3.3 - Tangent of Zero
 **Prompt**: "What is tan(0)?"
-**Expected MCP Tool**: `tan`
+**Expected MCP Tool**: `calculate_trigonometry` with operation='tan'
 **Test ID**: TRIG_003
 
 #### Test 3.4 - Inverse Sine
 **Prompt**: "Find the arcsine of 0.5."
-**Expected MCP Tool**: `asin`
+**Expected MCP Tool**: `calculate_trigonometry` with operation='asin'
 **Test ID**: TRIG_004
 
 #### Test 3.5 - Two-Argument Arctangent
 **Prompt**: "Calculate atan2(4, 3)."
-**Expected MCP Tool**: `atan2`
+**Expected MCP Tool**: `calculate_trigonometry` with operation='atan2'
 **Test ID**: TRIG_005
 
-### 4. Logarithmic and Exponential Functions
+### 4. Logarithmic and Exponential Functions (Individual Tools)
 
 #### Test 4.1 - Natural Logarithm
 **Prompt**: "What is the natural log of e squared?"
@@ -118,31 +128,31 @@ This document contains comprehensive mathematical questions designed to test the
 **Expected MCP Tool**: `exponential`
 **Test ID**: LOG_004
 
-### 5. Statistical Operations
+### 5. Statistical Operations (calculate_statistics tool)
 
 #### Test 5.1 - Mean of Dataset
 **Prompt**: "Find the average of these numbers: 12, 15, 18, 22, 25, 30"
-**Expected MCP Tool**: `mean`
+**Expected MCP Tool**: `calculate_statistics` with operation='mean'
 **Test ID**: STATS_001
 
 #### Test 5.2 - Median of Odd Dataset
 **Prompt**: "What's the median of: 7, 12, 3, 19, 25, 8, 14?"
-**Expected MCP Tool**: `median`
+**Expected MCP Tool**: `calculate_statistics` with operation='median'
 **Test ID**: STATS_002
 
 #### Test 5.3 - Mode Identification
 **Prompt**: "Find the mode in this dataset: 1, 2, 3, 2, 4, 2, 5, 6, 2"
-**Expected MCP Tool**: `mode`
+**Expected MCP Tool**: `calculate_statistics` with operation='mode'
 **Test ID**: STATS_003
 
 #### Test 5.4 - Standard Deviation
 **Prompt**: "Calculate the standard deviation of: 10, 12, 14, 16, 18"
-**Expected MCP Tool**: `standard_deviation`
+**Expected MCP Tool**: `calculate_statistics` with operation='standard_deviation'
 **Test ID**: STATS_004
 
 #### Test 5.5 - Range and Statistics
 **Prompt**: "What are the min, max, and range of: 25, 12, 38, 45, 7, 33?"
-**Expected MCP Tool**: `range_stats`
+**Expected MCP Tool**: `calculate_statistics` with operation='range_stats'
 **Test ID**: STATS_005
 
 ### 6. Matrix Operations
@@ -167,31 +177,31 @@ This document contains comprehensive mathematical questions designed to test the
 **Expected MCP Tool**: `matrix_transpose`
 **Test ID**: MATRIX_004
 
-### 7. Unit Conversions
+### 7. Unit Conversions (convert_units tool)
 
 #### Test 7.1 - Temperature Conversion
 **Prompt**: "Convert 25°C to Fahrenheit."
-**Expected MCP Tool**: `celsius_to_fahrenheit`
+**Expected MCP Tool**: `convert_units` with conversion_type='celsius_to_fahrenheit'
 **Test ID**: CONV_001
 
 #### Test 7.2 - Distance Conversion
 **Prompt**: "How many miles is 50 kilometers?"
-**Expected MCP Tool**: `kilometers_to_miles`
+**Expected MCP Tool**: `convert_units` with conversion_type='kilometers_to_miles'
 **Test ID**: CONV_002
 
 #### Test 7.3 - Weight Conversion
 **Prompt**: "Convert 150 pounds to kilograms."
-**Expected MCP Tool**: `pounds_to_kilograms`
+**Expected MCP Tool**: `convert_units` with conversion_type='pounds_to_kilograms'
 **Test ID**: CONV_003
 
 #### Test 7.4 - Volume Conversion
 **Prompt**: "How many liters are in 5 gallons?"
-**Expected MCP Tool**: `gallons_to_liters`
+**Expected MCP Tool**: `convert_units` with conversion_type='gallons_to_liters'
 **Test ID**: CONV_004
 
 #### Test 7.5 - Angle Conversion
 **Prompt**: "Convert 90 degrees to radians."
-**Expected MCP Tool**: `degrees_to_radians`
+**Expected MCP Tool**: `convert_units` with conversion_type='degrees_to_radians'
 **Test ID**: CONV_005
 
 ### 8. Advanced Mathematical Operations
@@ -287,26 +297,26 @@ This document contains comprehensive mathematical questions designed to test the
 **Expected MCP Tool**: `tanh`
 **Test ID**: HYP_003
 
-### 12. Complex Multi-Step Problems
+### 12. Complex Multi-Step Problems (Multiple Consolidated Tools)
 
 #### Test 12.1 - Engineering Problem
 **Prompt**: "A circular tank has a radius of 5 meters. Calculate its area and then find the volume if the height is 3 meters. Also convert the volume to gallons."
-**Expected MCP Tools**: `power`, `multiply`, `meters_to_feet`, `liters_to_gallons`
+**Expected MCP Tools**: `calculate_arithmetic` (power, multiply), `convert_units` (liters_to_gallons)
 **Test ID**: COMPLEX_001
 
 #### Test 12.2 - Financial Analysis
 **Prompt**: "I invest $5000 at 4% annual interest compounded quarterly for 10 years. What's the final amount? Then calculate what percentage increase this represents."
-**Expected MCP Tools**: `compound_interest`, `subtract`, `divide`, `multiply`
+**Expected MCP Tools**: `compound_interest`, `calculate_arithmetic` (subtract, divide, multiply)
 **Test ID**: COMPLEX_002
 
 #### Test 12.3 - Statistical Analysis
 **Prompt**: "Given the dataset [23, 45, 67, 34, 56, 78, 12, 89, 45, 56], find the mean, median, mode, and standard deviation. Then determine which values are within one standard deviation of the mean."
-**Expected MCP Tools**: `mean`, `median`, `mode`, `standard_deviation`, `subtract`, `absolute`
+**Expected MCP Tools**: `calculate_statistics` (mean, median, mode, standard_deviation), `calculate_arithmetic` (subtract), `absolute`
 **Test ID**: COMPLEX_003
 
 #### Test 12.4 - Geometry and Trigonometry
 **Prompt**: "In a right triangle, one leg is 3 units and the hypotenuse is 5 units. Find the other leg, then calculate all three angles in degrees."
-**Expected MCP Tools**: `power`, `subtract`, `square_root`, `asin`, `acos`, `radians_to_degrees`
+**Expected MCP Tools**: `calculate_arithmetic` (power, subtract, square_root), `calculate_trigonometry` (asin, acos), `convert_units` (radians_to_degrees)
 **Test ID**: COMPLEX_004
 
 #### Test 12.5 - Matrix Operations Chain

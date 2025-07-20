@@ -3,32 +3,34 @@
 ## Overview
 This document contains the expected results for all mathematical test prompts defined in `mcp_tests.md`. These results serve as the ground truth for validating AI agent responses using the SharkMath MCP server.
 
+**Note**: As of Phase 2, the server uses consolidated tools with parameter-based routing.
+
 ## Expected Results by Test Category
 
-### 1. Basic Arithmetic Operations
+### 1. Basic Arithmetic Operations (calculate_arithmetic tool)
 
 #### Test ARITH_001: Simple Addition
 - **Input**: 47 + 293
 - **Expected Result**: 340
-- **MCP Tool**: `add(a=47, b=293)`
+- **MCP Tool**: `calculate_arithmetic(operation='add', a=47, b=293)`
 - **Expected Response Format**: "✅ 47 + 293 = 340"
 
 #### Test ARITH_002: Subtraction with Negative Result  
 - **Input**: 125 - 347
 - **Expected Result**: -222
-- **MCP Tool**: `subtract(a=125, b=347)`
+- **MCP Tool**: `calculate_arithmetic(operation='subtract', a=125, b=347)`
 - **Expected Response Format**: "✅ 125 - 347 = -222"
 
 #### Test ARITH_003: Multiplication of Decimals
 - **Input**: 12.5 × 8.4
 - **Expected Result**: 105.0
-- **MCP Tool**: `multiply(a=12.5, b=8.4)`
+- **MCP Tool**: `calculate_arithmetic(operation='multiply', a=12.5, b=8.4)`
 - **Expected Response Format**: "✅ 12.5 × 8.4 = 105.0"
 
 #### Test ARITH_004: Division with Remainder
 - **Input**: 157 ÷ 23
 - **Expected Result**: 6.826... (approximately 6.83)
-- **MCP Tool**: `divide(a=157, b=23)`
+- **MCP Tool**: `calculate_arithmetic(operation='divide', a=157, b=23)`
 - **Expected Response Format**: "✅ 157 ÷ 23 ≈ 6.83"
 
 #### Test ARITH_005: Division by Zero (Error Handling)
