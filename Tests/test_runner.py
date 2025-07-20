@@ -15,19 +15,19 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-# Import all test modules
-from test_arithmetic import TestArithmetic
-from test_power_operations import TestPowerOperations
-from test_logarithmic import TestLogarithmic
-from test_hyperbolic import TestHyperbolic
-from test_statistics import TestStatistics
-from test_precision import TestPrecision
-from test_trigonometric import TestTrigonometric
-from test_combinatorics import TestCombinatorics
-from test_number_theory import TestNumberTheory
+# Import all test modules (consolidated tools after refactoring)
+from test_calculate_arithmetic import TestCalculateArithmetic
+from test_calculate_trigonometry import TestCalculateTrigonometry
+from test_calculate_statistics import TestCalculateStatistics
+from test_calculate_logarithmic import TestCalculateLogarithmic
+from test_calculate_hyperbolic import TestCalculateHyperbolic
+from test_format_precision import TestFormatPrecision
+from test_analyze_numbers import TestAnalyzeNumbers
 from test_conversions import TestConversions
-from test_advanced_calc import TestAdvancedCalc
-from test_matrix_operations import TestMatrixOperations
+# Phase 4 consolidated test files
+from test_solve_equations import TestSolveEquations
+from test_calculate_geometry_2d import TestCalculateGeometry2D
+from test_manipulate_matrices import TestManipulateMatrices
 
 
 class TestRunner:
@@ -122,20 +122,20 @@ def main():
     
     runner = TestRunner()
     
-    # Initialize all test classes
+    # Initialize all test classes (consolidated tools after refactoring)
     test_classes = [
-        TestArithmetic(),
-        TestPowerOperations(),
-        TestLogarithmic(),
-        TestHyperbolic(),
-        TestStatistics(),
-        TestPrecision(),
-        TestTrigonometric(),
-        TestCombinatorics(),
-        TestNumberTheory(),
+        TestCalculateArithmetic(),
+        TestCalculateTrigonometry(),
+        TestCalculateStatistics(),
+        TestCalculateLogarithmic(),
+        TestCalculateHyperbolic(),
+        TestFormatPrecision(),
+        TestAnalyzeNumbers(),
         TestConversions(),
-        TestAdvancedCalc(),
-        TestMatrixOperations()
+        # Phase 4 consolidated tools
+        TestSolveEquations(),
+        TestCalculateGeometry2D(),
+        TestManipulateMatrices()
     ]
     
     # Run all test classes

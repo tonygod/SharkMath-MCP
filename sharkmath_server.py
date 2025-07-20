@@ -11,8 +11,9 @@ try:
     from . import hyperbolic  # Consolidated: hyperbolic functions (3 functions → 1 tool)
     from . import precision  # Consolidated: precision and rounding functions (5 functions → 1 tool)
     from . import number_theory  # Consolidated: number theory + combinatorics (9 functions → 1 tool)
-    from . import advanced_calc
-    from . import matrix_operations
+    from . import solve_equations  # Consolidated: equation solvers (4 functions → 1 tool)
+    from . import calculate_geometry_2d  # Consolidated: 2D geometry calculations (8 functions → 1 tool)
+    from . import matrix_operations  # Consolidated: matrix operations (4 functions → 1 tool)
 except ImportError:
     # When run directly from SharkMath directory
     import arithmetic  # Consolidated: arithmetic + power operations (11 functions → 1 tool)
@@ -23,8 +24,9 @@ except ImportError:
     import hyperbolic  # Consolidated: hyperbolic functions (3 functions → 1 tool)
     import precision  # Consolidated: precision and rounding functions (5 functions → 1 tool)
     import number_theory  # Consolidated: number theory + combinatorics (9 functions → 1 tool)
-    import advanced_calc
-    import matrix_operations
+    import solve_equations  # Consolidated: equation solvers (4 functions → 1 tool)
+    import calculate_geometry_2d  # Consolidated: 2D geometry calculations (8 functions → 1 tool)
+    import matrix_operations  # Consolidated: matrix operations (4 functions → 1 tool)
 
 # Initialize FastMCP server
 mcp = FastMCP("SharkMath Server")
@@ -38,8 +40,9 @@ logarithmic.register_tools(mcp)  # Consolidated: calculate_logarithmic (4 logari
 hyperbolic.register_tools(mcp)  # Consolidated: calculate_hyperbolic (3 hyperbolic functions)
 precision.register_tools(mcp)  # Consolidated: format_precision (5 precision functions)
 number_theory.register_tools(mcp)  # Consolidated: analyze_numbers (5 number theory + 4 combinatorial functions)
-advanced_calc.register_tools(mcp)
-matrix_operations.register_tools(mcp)
+solve_equations.register_tools(mcp)  # Consolidated: solve_equations (quadratic, linear, compound/simple interest)
+calculate_geometry_2d.register_tools(mcp)  # Consolidated: calculate_geometry_2d (distance, slope, areas, perimeters)
+matrix_operations.register_tools(mcp)  # Consolidated: manipulate_matrices (4 matrix operations)
 
 if __name__ == "__main__":
     import asyncio
