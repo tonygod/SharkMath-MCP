@@ -62,3 +62,6 @@ coverage.xml
 
 # MCP specific
 *.mcp
+
+# Archived documents
+Docs/Archive/
