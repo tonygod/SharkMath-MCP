@@ -3,8 +3,19 @@ Convert Units - Consolidated Unit Conversion Tool for SharkMath MCP Server
 Production implementation with parameter-based routing for 42+ unit conversions.
 """
 
-from consolidated_tool_template import ConversionTool, validate_positive
 import math
+
+
+class ConversionTool:
+    """Base conversion tool functionality"""
+    @staticmethod  
+    def format_result(value: float, from_unit: str, to_unit: str, result: float) -> str:
+        return f"✅ {value} {from_unit} = {result} {to_unit}"
+
+
+def validate_positive(value: float, name: str = "value") -> bool:
+    """Validate that a value is positive"""
+    return value > 0
 
 def register_tools(mcp):
     """Register the consolidated convert_units tool with the MCP server."""
@@ -20,10 +31,10 @@ def register_tools(mcp):
         - Time: seconds, minutes, hours, days, weeks, months, years, milliseconds
         - Weight: kilograms, pounds
         - Volume: liters, gallons
-        - Area: square_meters, square_feet, acres, hectares (future)
-        - Speed: mps, kmh, mph, knots (future)
-        - Pressure: pascals, atmospheres, psi, bar (future)
-        - Data: bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, bits (future)
+        - Area: square_meters, square_feet, acres, hectares
+        - Speed: mps, kmh, mph, knots
+        - Pressure: pascals, atmospheres, psi, bar
+        - Data: bytes, kilobytes, megabytes, gigabytes, terabytes, petabytes, bits
         
         Args:
             from_unit: Source unit for conversion
@@ -55,6 +66,18 @@ def register_tools(mcp):
                 return f"❌ Energy cannot be negative"
             if from_unit in ["seconds", "minutes", "hours", "days", "weeks", "months", "years", "milliseconds"] and value < 0:
                 return f"❌ Time cannot be negative"
+            if from_unit in ["kilograms", "pounds"] and value < 0:
+                return f"❌ Weight cannot be negative"
+            if from_unit in ["liters", "gallons"] and value < 0:
+                return f"❌ Volume cannot be negative"
+            if from_unit in ["square_meters", "square_feet", "acres", "hectares"] and value < 0:
+                return f"❌ Area cannot be negative"
+            if from_unit in ["mps", "kmh", "mph", "knots"] and value < 0:
+                return f"❌ Speed cannot be negative"
+            if from_unit in ["pascals", "atmospheres", "psi", "bar"] and value < 0:
+                return f"❌ Pressure cannot be negative"
+            if from_unit in ["bytes", "kilobytes", "megabytes", "gigabytes", "terabytes", "petabytes", "bits"] and value < 0:
+                return f"❌ Data size cannot be negative"
                 
             # Conversion mappings with factors and special functions
             conversions = {
@@ -113,6 +136,62 @@ def register_tools(mcp):
                 # Angle conversions  
                 "degrees_to_radians": lambda x: math.radians(x),
                 "radians_to_degrees": lambda x: math.degrees(x),
+                
+                # Area conversions
+                "square_meters_to_square_feet": lambda x: x * 10.7639,
+                "square_feet_to_square_meters": lambda x: x / 10.7639,
+                "square_meters_to_hectares": lambda x: x / 10000,
+                "hectares_to_square_meters": lambda x: x * 10000,
+                "hectares_to_acres": lambda x: x * 2.47105,
+                "acres_to_hectares": lambda x: x / 2.47105,
+                "square_feet_to_acres": lambda x: x / 43560,
+                "acres_to_square_feet": lambda x: x * 43560,
+                
+                # Speed conversions
+                "mps_to_kmh": lambda x: x * 3.6,
+                "kmh_to_mps": lambda x: x / 3.6,
+                "mps_to_mph": lambda x: x * 2.23694,
+                "mph_to_mps": lambda x: x / 2.23694,
+                "kmh_to_mph": lambda x: x * 0.621371,
+                "mph_to_kmh": lambda x: x / 0.621371,
+                "knots_to_mps": lambda x: x * 0.514444,
+                "mps_to_knots": lambda x: x / 0.514444,
+                "knots_to_mph": lambda x: x * 1.15078,
+                "mph_to_knots": lambda x: x / 1.15078,
+                "knots_to_kmh": lambda x: x * 1.852,
+                "kmh_to_knots": lambda x: x / 1.852,
+                
+                # Pressure conversions  
+                "pascals_to_atmospheres": lambda x: x / 101325,
+                "atmospheres_to_pascals": lambda x: x * 101325,
+                "pascals_to_psi": lambda x: x / 6895,
+                "psi_to_pascals": lambda x: x * 6895,
+                "pascals_to_bar": lambda x: x / 100000,
+                "bar_to_pascals": lambda x: x * 100000,
+                "atmospheres_to_psi": lambda x: x * 14.696,
+                "psi_to_atmospheres": lambda x: x / 14.696,
+                "atmospheres_to_bar": lambda x: x * 1.01325,
+                "bar_to_atmospheres": lambda x: x / 1.01325,
+                "psi_to_bar": lambda x: x / 14.504,
+                "bar_to_psi": lambda x: x * 14.504,
+                
+                # Data conversions
+                "bits_to_bytes": lambda x: x / 8,
+                "bytes_to_bits": lambda x: x * 8,
+                "bytes_to_kilobytes": lambda x: x / 1024,
+                "kilobytes_to_bytes": lambda x: x * 1024,
+                "kilobytes_to_megabytes": lambda x: x / 1024,
+                "megabytes_to_kilobytes": lambda x: x * 1024,
+                "megabytes_to_gigabytes": lambda x: x / 1024,
+                "gigabytes_to_megabytes": lambda x: x * 1024,
+                "gigabytes_to_terabytes": lambda x: x / 1024,
+                "terabytes_to_gigabytes": lambda x: x * 1024,
+                "terabytes_to_petabytes": lambda x: x / 1024,
+                "petabytes_to_terabytes": lambda x: x * 1024,
+                "bytes_to_megabytes": lambda x: x / (1024 * 1024),
+                "megabytes_to_bytes": lambda x: x * (1024 * 1024),
+                "bytes_to_gigabytes": lambda x: x / (1024 * 1024 * 1024),
+                "gigabytes_to_bytes": lambda x: x * (1024 * 1024 * 1024),
             }
             
             if conversion_key not in conversions:
@@ -151,5 +230,5 @@ if __name__ == "__main__":
     register_tools(mock_mcp)
     
     print("✅ convert_units tool registered successfully!")
-    print(f"✅ Supports 42+ unit conversions across 7 categories")
+    print(f"✅ Supports 80+ unit conversions across 11 categories")
     print("✅ Ready for MCP integration testing")

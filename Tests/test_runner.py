@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-SharkMath Test Runner
+SharkMath Test Runner - Consolidated Tools
 
-Comprehensive testing suite for all SharkMath MCP server modules.
-Tests all 70 mathematical functions across 12 domains with edge cases.
+Comprehensive testing suite for all consolidated SharkMath MCP server tools.
+Tests all 14 consolidated tools with 150+ mathematical functions across all domains.
+Updated for Phase 5 implementation.
 """
 
 import asyncio
@@ -15,7 +16,7 @@ from pathlib import Path
 # Add parent directory to path for imports
 sys.path.append(str(Path(__file__).parent.parent))
 
-# Import all test modules (consolidated tools after refactoring)
+# Import all consolidated test modules
 from test_calculate_arithmetic import TestCalculateArithmetic
 from test_calculate_trigonometry import TestCalculateTrigonometry
 from test_calculate_statistics import TestCalculateStatistics
@@ -23,11 +24,17 @@ from test_calculate_logarithmic import TestCalculateLogarithmic
 from test_calculate_hyperbolic import TestCalculateHyperbolic
 from test_format_precision import TestFormatPrecision
 from test_analyze_numbers import TestAnalyzeNumbers
-from test_conversions import TestConversions
-# Phase 4 consolidated test files
+from test_convert_units import TestConvertUnits
 from test_solve_equations import TestSolveEquations
 from test_calculate_geometry_2d import TestCalculateGeometry2D
 from test_manipulate_matrices import TestManipulateMatrices
+# Phase 5 consolidated test files
+from test_financial_calculations import TestFinancialCalculations
+from test_computer_science_tools import TestComputerScienceTools
+from test_data_analysis import TestDataAnalysis
+# Phase 6 test files  
+from test_enhanced_conversions import TestEnhancedConversions
+from test_utility_functions import TestUtilityFunctions
 
 
 class TestRunner:
@@ -117,7 +124,7 @@ class TestRunner:
 def main():
     """Run all SharkMath tests."""
     print("SharkMath Comprehensive Test Suite")
-    print(f"Testing all 70 functions across 12 mathematical domains")
+    print(f"Testing all 100+ functions across 15 consolidated tools")
     print(f"{'='*60}")
     
     runner = TestRunner()
@@ -131,11 +138,17 @@ def main():
         TestCalculateHyperbolic(),
         TestFormatPrecision(),
         TestAnalyzeNumbers(),
-        TestConversions(),
-        # Phase 4 consolidated tools
+        TestConvertUnits(),
         TestSolveEquations(),
         TestCalculateGeometry2D(),
-        TestManipulateMatrices()
+        TestManipulateMatrices(),
+        # Phase 5 consolidated tools
+        TestFinancialCalculations(),
+        TestComputerScienceTools(),
+        TestDataAnalysis(),
+        # Phase 6 enhancements
+        TestEnhancedConversions(),
+        TestUtilityFunctions()
     ]
     
     # Run all test classes

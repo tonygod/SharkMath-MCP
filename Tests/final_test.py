@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-SharkMath MCP Server Comprehensive Test Suite
-Tests all 70 functions across 12 mathematical domains using real FastMCP server
+SharkMath MCP Server Comprehensive Test Suite - Consolidated Tools
+Tests all consolidated tools in the SharkMath MCP Server using real FastMCP server
+Updated for Phase 5 implementation with 14 consolidated tools.
 """
 
 import asyncio
@@ -11,26 +12,23 @@ import os
 # Add SharkMath directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Import FastMCP and modules
+# Import FastMCP and consolidated modules
 try:
     from mcp.server.fastmcp import FastMCP
     import arithmetic
-    import power_operations
+    import trigonometric
+    import stats_operations
+    import convert_units
     import matrix_operations
     import logarithmic
-    import trigonometric
-    import conversions
-    import advanced_calc
     import hyperbolic
     import precision
-    import combinatorics
     import number_theory
-    
-    # Import statistics carefully to avoid conflicts
-    import importlib.util
-    stats_spec = importlib.util.spec_from_file_location("stats_ops", os.path.join(os.path.dirname(__file__), "..", "statistics.py"))
-    stats_ops = importlib.util.module_from_spec(stats_spec)
-    stats_spec.loader.exec_module(stats_ops)
+    import solve_equations
+    import calculate_geometry_2d
+    import financial_calculations
+    import computer_science_tools
+    import data_analysis
     
 except ImportError as e:
     print(f"❌ Import Error: {e}")
@@ -92,22 +90,24 @@ class TestRunner:
             print("✨ SharkMath MCP Server needs attention")
 
 async def create_sharkmath_server():
-    """Create and configure a FastMCP server with all SharkMath tools"""
+    """Create and configure a FastMCP server with all consolidated SharkMath tools"""
     mcp = FastMCP("SharkMath-Test-Server")
     
-    # Register all tools from all modules
+    # Register all consolidated tools
     arithmetic.register_tools(mcp)
-    power_operations.register_tools(mcp)
+    trigonometric.register_tools(mcp)
+    stats_operations.register_tools(mcp)
+    convert_units.register_tools(mcp)
     matrix_operations.register_tools(mcp)
     logarithmic.register_tools(mcp)
-    trigonometric.register_tools(mcp)
-    conversions.register_tools(mcp)
-    advanced_calc.register_tools(mcp)
-    stats_ops.register_tools(mcp)
     hyperbolic.register_tools(mcp)
     precision.register_tools(mcp)
-    combinatorics.register_tools(mcp)
     number_theory.register_tools(mcp)
+    solve_equations.register_tools(mcp)
+    calculate_geometry_2d.register_tools(mcp)
+    financial_calculations.register_tools(mcp)
+    computer_science_tools.register_tools(mcp)
+    data_analysis.register_tools(mcp)
     
     return mcp
 

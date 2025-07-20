@@ -4,8 +4,9 @@ Equation Solvers Module for SharkMath MCP Server
 This module provides consolidated equation-solving functions including:
 - Quadratic equations (ax² + bx + c = 0)
 - Linear equations
-- Compound interest calculations
-- Simple interest calculations
+
+Note: Financial calculations (compound_interest, simple_interest) have been 
+migrated to the financial_calculations module for better organization.
 
 All functions follow the SharkMath error handling standards with ✅/❌ prefixes.
 This is a consolidated tool using parameter-based routing.
@@ -23,24 +24,19 @@ def register_tools(mcp):
         equation_type: str,
         a: Optional[float] = None,
         b: Optional[float] = None, 
-        c: Optional[float] = None,
-        principal: Optional[float] = None,
-        rate: Optional[float] = None,
-        time: Optional[float] = None,
-        compounds_per_year: Optional[int] = None
+        c: Optional[float] = None
     ) -> str:
         """
-        Solve various types of equations including quadratic, linear, and financial calculations.
+        Solve various types of equations including quadratic and linear equations.
+        
+        Note: Financial calculations (compound_interest, simple_interest) have been 
+        migrated to the financial_calculations tool for better organization.
         
         Args:
-            equation_type: Type of equation to solve - "quadratic", "linear", "compound_interest", "simple_interest"
+            equation_type: Type of equation to solve - "quadratic", "linear"
             a: Coefficient of x² for quadratic equations, or coefficient of x for linear equations
             b: Coefficient of x for quadratic equations, or constant term for linear equations  
             c: Constant term for quadratic equations
-            principal: Initial amount for interest calculations
-            rate: Interest rate as decimal (e.g., 0.05 for 5%)
-            time: Time period in years for interest calculations
-            compounds_per_year: Number of compounding periods per year (default 1 for simple interest)
             
         Returns:
             String with solution(s) or calculation results
@@ -49,9 +45,7 @@ def register_tools(mcp):
         # Define valid operations
         valid_operations = {
             "quadratic": _solve_quadratic,
-            "linear": _solve_linear,
-            "compound_interest": _compound_interest,
-            "simple_interest": _simple_interest
+            "linear": _solve_linear
         }
         
         # Validate operation
@@ -62,9 +56,7 @@ def register_tools(mcp):
         try:
             # Route to appropriate function
             return valid_operations[equation_type](
-                a=a, b=b, c=c, 
-                principal=principal, rate=rate, time=time, 
-                compounds_per_year=compounds_per_year
+                a=a, b=b, c=c
             )
             
         except Exception as e:
@@ -130,96 +122,6 @@ def _solve_linear(a: Optional[float], b: Optional[float], **kwargs) -> str:
     
     solution = -b / a
     return f"✅ Linear equation solution: x = {solution}"
-
-
-def _compound_interest(principal: Optional[float], rate: Optional[float], time: Optional[float], 
-                      compounds_per_year: Optional[int], **kwargs) -> str:
-    """
-    Calculate compound interest using the formula: A = P(1 + r/n)^(nt)
-    """
-    # Validate required parameters
-    if principal is None or rate is None or time is None:
-        return "❌ Compound interest requires parameters: principal, rate, time"
-    
-    # Default compounding frequency
-    if compounds_per_year is None:
-        compounds_per_year = 1
-    
-    # Input validation
-    if principal < 0:
-        return "❌ Principal amount cannot be negative"
-    
-    if rate < 0:
-        return "❌ Interest rate cannot be negative"
-        
-    if time < 0:
-        return "❌ Time period cannot be negative"
-        
-    if compounds_per_year <= 0:
-        return "❌ Compounds per year must be positive integer"
-    
-    # Calculate compound interest
-    # A = P(1 + r/n)^(nt)
-    final_amount = principal * (1 + rate / compounds_per_year) ** (compounds_per_year * time)
-    interest_earned = final_amount - principal
-    
-    # Convert rate to percentage for display
-    rate_percent = rate * 100
-    
-    # Determine compounding frequency description
-    if compounds_per_year == 1:
-        frequency = "annually"
-    elif compounds_per_year == 2:
-        frequency = "semi-annually"
-    elif compounds_per_year == 4:
-        frequency = "quarterly"
-    elif compounds_per_year == 12:
-        frequency = "monthly"
-    elif compounds_per_year == 365:
-        frequency = "daily"
-    else:
-        frequency = f"{compounds_per_year} times per year"
-    
-    return (f"✅ Compound Interest Calculation:\n"
-           f"   Principal: ${principal:,.2f}\n"
-           f"   Rate: {rate_percent}% compounded {frequency}\n"
-           f"   Time: {time} years\n"
-           f"   Final Amount: ${final_amount:,.2f}\n"
-           f"   Interest Earned: ${interest_earned:,.2f}")
-
-
-def _simple_interest(principal: Optional[float], rate: Optional[float], time: Optional[float], **kwargs) -> str:
-    """
-    Calculate simple interest using the formula: I = P × r × t, A = P + I
-    """
-    # Validate required parameters
-    if principal is None or rate is None or time is None:
-        return "❌ Simple interest requires parameters: principal, rate, time"
-    
-    # Input validation
-    if principal < 0:
-        return "❌ Principal amount cannot be negative"
-    
-    if rate < 0:
-        return "❌ Interest rate cannot be negative"
-        
-    if time < 0:
-        return "❌ Time period cannot be negative"
-    
-    # Calculate simple interest
-    # I = P × r × t
-    interest_earned = principal * rate * time
-    final_amount = principal + interest_earned
-    
-    # Convert rate to percentage for display
-    rate_percent = rate * 100
-    
-    return (f"✅ Simple Interest Calculation:\n"
-           f"   Principal: ${principal:,.2f}\n"
-           f"   Rate: {rate_percent}% per year\n"
-           f"   Time: {time} years\n"
-           f"   Final Amount: ${final_amount:,.2f}\n"
-           f"   Interest Earned: ${interest_earned:,.2f}")
 
 
 # Support for direct execution (testing)

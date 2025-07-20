@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 """
-SharkMath MCP Server Functional Test Suite
-Tests the actual MCP server by instantiating it and registering tools
+SharkMath MCP Server Functional Test Suite - Consolidated Tools
+Tests the actual MCP server with consolidated tools by instantiating it and registering tools
+Updated for Phase 5 implementation with 14 consolidated tools.
 """
 
 import asyncio
@@ -11,21 +12,23 @@ import os
 # Add SharkMath directory to path
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-# Import FastMCP and modules
+# Import FastMCP and consolidated modules
 try:
     from mcp.server.fastmcp import FastMCP
     import arithmetic
-    import power_operations
-    import matrix_operations
     import trigonometric
-    import conversions
-    import advanced_calc
-    
-    # Import statistics carefully 
-    import importlib.util
-    stats_spec = importlib.util.spec_from_file_location("stats_ops", os.path.join(os.path.dirname(__file__), "..", "statistics.py"))
-    stats_ops = importlib.util.module_from_spec(stats_spec)
-    stats_spec.loader.exec_module(stats_ops)
+    import stats_operations
+    import convert_units
+    import matrix_operations
+    import logarithmic
+    import hyperbolic
+    import precision
+    import number_theory
+    import solve_equations
+    import calculate_geometry_2d
+    import financial_calculations
+    import computer_science_tools
+    import data_analysis
     
     MCP_AVAILABLE = True
 except ImportError as e:
@@ -88,21 +91,28 @@ async def test_with_mcp():
     # Create MCP server instance
     mcp = FastMCP("SharkMath Test Server")
     
-    # Register tools from modules
-    print("Registering tools from modules...")
+    # Register consolidated tools from modules
+    print("Registering consolidated tools from modules...")
     arithmetic.register_tools(mcp)
-    power_operations.register_tools(mcp)
-    matrix_operations.register_tools(mcp)
     trigonometric.register_tools(mcp)
-    conversions.register_tools(mcp)
-    advanced_calc.register_tools(mcp)
-    stats_ops.register_tools(mcp)
+    stats_operations.register_tools(mcp)
+    convert_units.register_tools(mcp)
+    matrix_operations.register_tools(mcp)
+    logarithmic.register_tools(mcp)
+    hyperbolic.register_tools(mcp)
+    precision.register_tools(mcp)
+    number_theory.register_tools(mcp)
+    solve_equations.register_tools(mcp)
+    calculate_geometry_2d.register_tools(mcp)
+    financial_calculations.register_tools(mcp)
+    computer_science_tools.register_tools(mcp)
+    data_analysis.register_tools(mcp)
     
     # Get registered tools using the proper async API
     try:
         tools_list = await mcp.list_tools()
         tools_count = len(tools_list)
-        print(f"✅ Registered {tools_count} tools total")
+        print(f"✅ Registered {tools_count} consolidated tools total")
         
         # List all available tools
         print("\n📋 Available Tools:")

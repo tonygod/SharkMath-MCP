@@ -1,17 +1,26 @@
 # SharkMath MCP Server - AI Agent Test Prompts
 
 ## Overview
-This document contains comprehensive mathematical questions designed to test the SharkMath MCP server through AI agent interactions. Each prompt is designed to trigger specific **consolidated MCP tools** and validate their functionality in real-world usage scenarios.
-
-**Note**: As of Phase 2, the server uses consolidated tools with parameter-based routing instead of individual tools.
+This document contains comprehensive mathematical questions designed to test the SharkMath MCP server through AI agent interactions. Each prompt is designed to trigger specific **MCP tools** and validate their functionality in real-world usage scenarios.
 
 ## Consolidated Tool Architecture
 
-### **Primary Consolidated Tools:**
+### **All Available Tools:**
 1. **`calculate_arithmetic`** - All arithmetic and power operations (11 operations)
 2. **`calculate_trigonometry`** - All trigonometric functions (10 operations)  
-3. **`calculate_statistics`** - All statistical operations + percentiles (6+ operations)
-4. **`convert_units`** - All unit conversions (28 conversions)
+3. **`calculate_statistics`** - All statistical operations (7 operations)
+4. **`convert_units`** - All unit conversions (80+ conversions)
+5. **`calculate_logarithmic`** - Logarithmic and exponential functions (4 operations)
+6. **`calculate_hyperbolic`** - Hyperbolic functions (3 operations)
+7. **`format_precision`** - Precision and rounding functions (5 operations)
+8. **`analyze_numbers`** - Number theory and combinatorics (9 operations)
+9. **`solve_equations`** - Equation solvers (4 operations)
+10. **`calculate_geometry_2d`** - 2D geometry calculations (8 operations)
+11. **`manipulate_matrices`** - Matrix operations (4 operations)
+12. **`financial_calculations`** - Financial and business calculations (11 operations)
+13. **`computer_science_tools`** - Computer science functions (12 operations)
+14. **`data_analysis`** - Advanced data analysis functions (10 operations)
+15. **`utility_functions`** - Utility functions (5 operations)
 
 ## Test Categories
 
@@ -106,26 +115,26 @@ This document contains comprehensive mathematical questions designed to test the
 **Expected MCP Tool**: `calculate_trigonometry` with operation='atan2'
 **Test ID**: TRIG_005
 
-### 4. Logarithmic and Exponential Functions (Individual Tools)
+### 4. Logarithmic and Exponential Functions (calculate_logarithmic tool)
 
 #### Test 4.1 - Natural Logarithm
 **Prompt**: "What is the natural log of e squared?"
-**Expected MCP Tool**: `natural_log`
+**Expected MCP Tool**: `calculate_logarithmic` with operation='natural_log'
 **Test ID**: LOG_001
 
 #### Test 4.2 - Base-10 Logarithm
 **Prompt**: "Calculate log₁₀(1000)."
-**Expected MCP Tool**: `log_base_10`
+**Expected MCP Tool**: `calculate_logarithmic` with operation='log_base_10'
 **Test ID**: LOG_002
 
 #### Test 4.3 - Custom Base Logarithm
 **Prompt**: "Find log₂(32)."
-**Expected MCP Tool**: `log_base`
+**Expected MCP Tool**: `calculate_logarithmic` with operation='log_base'
 **Test ID**: LOG_003
 
 #### Test 4.4 - Exponential Function
 **Prompt**: "Calculate e^3."
-**Expected MCP Tool**: `exponential`
+**Expected MCP Tool**: `calculate_logarithmic` with operation='exponential'
 **Test ID**: LOG_004
 
 ### 5. Statistical Operations (calculate_statistics tool)
@@ -155,146 +164,146 @@ This document contains comprehensive mathematical questions designed to test the
 **Expected MCP Tool**: `calculate_statistics` with operation='range_stats'
 **Test ID**: STATS_005
 
-### 6. Matrix Operations
+### 6. Matrix Operations (manipulate_matrices tool)
 
 #### Test 6.1 - Matrix Addition
 **Prompt**: "Add these two 2x2 matrices: [[1,2],[3,4]] and [[5,6],[7,8]]"
-**Expected MCP Tool**: `matrix_add`
+**Expected MCP Tool**: `manipulate_matrices` with operation='add'
 **Test ID**: MATRIX_001
 
 #### Test 6.2 - Matrix Multiplication
 **Prompt**: "Multiply matrices A = [[2,1],[3,4]] and B = [[1,0],[2,5]]"
-**Expected MCP Tool**: `matrix_multiply`
+**Expected MCP Tool**: `manipulate_matrices` with operation='multiply'
 **Test ID**: MATRIX_002
 
 #### Test 6.3 - Matrix Determinant
 **Prompt**: "Find the determinant of [[3,2],[1,4]]"
-**Expected MCP Tool**: `matrix_determinant`
+**Expected MCP Tool**: `manipulate_matrices` with operation='determinant'
 **Test ID**: MATRIX_003
 
 #### Test 6.4 - Matrix Transpose
 **Prompt**: "Transpose the matrix [[1,2,3],[4,5,6]]"
-**Expected MCP Tool**: `matrix_transpose`
+**Expected MCP Tool**: `manipulate_matrices` with operation='transpose'
 **Test ID**: MATRIX_004
 
 ### 7. Unit Conversions (convert_units tool)
 
 #### Test 7.1 - Temperature Conversion
 **Prompt**: "Convert 25°C to Fahrenheit."
-**Expected MCP Tool**: `convert_units` with conversion_type='celsius_to_fahrenheit'
+**Expected MCP Tool**: `convert_units` with from_unit='celsius', to_unit='fahrenheit'
 **Test ID**: CONV_001
 
 #### Test 7.2 - Distance Conversion
 **Prompt**: "How many miles is 50 kilometers?"
-**Expected MCP Tool**: `convert_units` with conversion_type='kilometers_to_miles'
+**Expected MCP Tool**: `convert_units` with from_unit='kilometers', to_unit='miles'
 **Test ID**: CONV_002
 
 #### Test 7.3 - Weight Conversion
 **Prompt**: "Convert 150 pounds to kilograms."
-**Expected MCP Tool**: `convert_units` with conversion_type='pounds_to_kilograms'
+**Expected MCP Tool**: `convert_units` with from_unit='pounds', to_unit='kilograms'
 **Test ID**: CONV_003
 
 #### Test 7.4 - Volume Conversion
 **Prompt**: "How many liters are in 5 gallons?"
-**Expected MCP Tool**: `convert_units` with conversion_type='gallons_to_liters'
+**Expected MCP Tool**: `convert_units` with from_unit='gallons', to_unit='liters'
 **Test ID**: CONV_004
 
 #### Test 7.5 - Angle Conversion
 **Prompt**: "Convert 90 degrees to radians."
-**Expected MCP Tool**: `convert_units` with conversion_type='degrees_to_radians'
+**Expected MCP Tool**: `convert_units` with from_unit='degrees', to_unit='radians'
 **Test ID**: CONV_005
 
 ### 8. Advanced Mathematical Operations
 
 #### Test 8.1 - Quadratic Equation
 **Prompt**: "Solve the quadratic equation: x² - 5x + 6 = 0"
-**Expected MCP Tool**: `solve_quadratic`
+**Expected MCP Tool**: `solve_equations` with equation_type='quadratic'
 **Test ID**: ADV_001
 
 #### Test 8.2 - Distance Between Points
 **Prompt**: "Find the distance between points (3,4) and (7,1)."
-**Expected MCP Tool**: `distance_2d`
+**Expected MCP Tool**: `calculate_geometry_2d` with operation='distance'
 **Test ID**: ADV_002
 
 #### Test 8.3 - Slope Calculation
 **Prompt**: "What's the slope of the line passing through (2,3) and (6,11)?"
-**Expected MCP Tool**: `slope`
+**Expected MCP Tool**: `calculate_geometry_2d` with operation='slope'
 **Test ID**: ADV_003
 
 #### Test 8.4 - Compound Interest
 **Prompt**: "Calculate compound interest: $1000 principal, 5% annual rate, 3 years, compounded annually."
-**Expected MCP Tool**: `compound_interest`
+**Expected MCP Tool**: `financial_calculations` with operation='compound_interest'
 **Test ID**: ADV_004
 
-### 9. Combinatorics and Number Theory
+### 9. Combinatorics and Number Theory (analyze_numbers tool)
 
 #### Test 9.1 - Factorial
 **Prompt**: "What is 8 factorial?"
-**Expected MCP Tool**: `factorial`
+**Expected MCP Tool**: `analyze_numbers` with operation='factorial'
 **Test ID**: COMB_001
 
 #### Test 9.2 - Permutation
 **Prompt**: "How many ways can I arrange 5 items taken 3 at a time?"
-**Expected MCP Tool**: `permutation`
+**Expected MCP Tool**: `analyze_numbers` with operation='permutation'
 **Test ID**: COMB_002
 
 #### Test 9.3 - Combination
 **Prompt**: "Calculate C(10,4) - combinations of 10 items taken 4 at a time."
-**Expected MCP Tool**: `combination`
+**Expected MCP Tool**: `analyze_numbers` with operation='combination'
 **Test ID**: COMB_003
 
 #### Test 9.4 - Fibonacci Number
 **Prompt**: "What is the 12th Fibonacci number?"
-**Expected MCP Tool**: `fibonacci`
+**Expected MCP Tool**: `analyze_numbers` with operation='fibonacci'
 **Test ID**: COMB_004
 
 #### Test 9.5 - Prime Check
 **Prompt**: "Is 97 a prime number?"
-**Expected MCP Tool**: `is_prime`
+**Expected MCP Tool**: `analyze_numbers` with operation='is_prime'
 **Test ID**: NUM_001
 
 #### Test 9.6 - GCD Calculation
 **Prompt**: "Find the greatest common divisor of 48 and 18."
-**Expected MCP Tool**: `gcd`
+**Expected MCP Tool**: `analyze_numbers` with operation='gcd'
 **Test ID**: NUM_002
 
-### 10. Precision and Rounding Operations
+### 10. Precision and Rounding Operations (format_precision tool)
 
 #### Test 10.1 - Decimal Rounding
 **Prompt**: "Round 3.14159 to 3 decimal places."
-**Expected MCP Tool**: `round_to_decimal`
+**Expected MCP Tool**: `format_precision` with operation='round'
 **Test ID**: PREC_001
 
 #### Test 10.2 - Floor Function
 **Prompt**: "What is the floor of -2.7?"
-**Expected MCP Tool**: `floor`
+**Expected MCP Tool**: `format_precision` with operation='floor'
 **Test ID**: PREC_002
 
 #### Test 10.3 - Ceiling Function
 **Prompt**: "Calculate the ceiling of 4.1."
-**Expected MCP Tool**: `ceiling`
+**Expected MCP Tool**: `format_precision` with operation='ceiling'
 **Test ID**: PREC_003
 
 #### Test 10.4 - Absolute Value
 **Prompt**: "Find the absolute value of -15.8."
-**Expected MCP Tool**: `absolute`
+**Expected MCP Tool**: `format_precision` with operation='absolute'
 **Test ID**: PREC_004
 
-### 11. Hyperbolic Functions
+### 11. Hyperbolic Functions (calculate_hyperbolic tool)
 
 #### Test 11.1 - Hyperbolic Sine
 **Prompt**: "Calculate sinh(2)."
-**Expected MCP Tool**: `sinh`
+**Expected MCP Tool**: `calculate_hyperbolic` with operation='sinh'
 **Test ID**: HYP_001
 
 #### Test 11.2 - Hyperbolic Cosine
 **Prompt**: "What is cosh(0)?"
-**Expected MCP Tool**: `cosh`
+**Expected MCP Tool**: `calculate_hyperbolic` with operation='cosh'
 **Test ID**: HYP_002
 
 #### Test 11.3 - Hyperbolic Tangent
 **Prompt**: "Find tanh(1)."
-**Expected MCP Tool**: `tanh`
+**Expected MCP Tool**: `calculate_hyperbolic` with operation='tanh'
 **Test ID**: HYP_003
 
 ### 12. Complex Multi-Step Problems (Multiple Consolidated Tools)
@@ -306,12 +315,12 @@ This document contains comprehensive mathematical questions designed to test the
 
 #### Test 12.2 - Financial Analysis
 **Prompt**: "I invest $5000 at 4% annual interest compounded quarterly for 10 years. What's the final amount? Then calculate what percentage increase this represents."
-**Expected MCP Tools**: `compound_interest`, `calculate_arithmetic` (subtract, divide, multiply)
+**Expected MCP Tools**: `financial_calculations`, `calculate_arithmetic` (subtract, divide, multiply)
 **Test ID**: COMPLEX_002
 
 #### Test 12.3 - Statistical Analysis
 **Prompt**: "Given the dataset [23, 45, 67, 34, 56, 78, 12, 89, 45, 56], find the mean, median, mode, and standard deviation. Then determine which values are within one standard deviation of the mean."
-**Expected MCP Tools**: `calculate_statistics` (mean, median, mode, standard_deviation), `calculate_arithmetic` (subtract), `absolute`
+**Expected MCP Tools**: `calculate_statistics` (mean, median, mode, standard_deviation), `calculate_arithmetic` (subtract), `format_precision` (absolute)
 **Test ID**: COMPLEX_003
 
 #### Test 12.4 - Geometry and Trigonometry
@@ -321,29 +330,58 @@ This document contains comprehensive mathematical questions designed to test the
 
 #### Test 12.5 - Matrix Operations Chain
 **Prompt**: "Given matrix A = [[2,3],[1,4]] and B = [[1,2],[3,1]], calculate A+B, then find the determinant of the result, and finally check if this determinant is a perfect square."
-**Expected MCP Tools**: `matrix_add`, `matrix_determinant`, `is_perfect_square`
+**Expected MCP Tools**: `manipulate_matrices`, `analyze_numbers`
 **Test ID**: COMPLEX_005
 
 ## Test Execution Instructions
 
-1. **Run each test individually** by providing the prompt to an AI agent with access to the SharkMath MCP server
-2. **Record the MCP tools used** by the agent for each prompt
-3. **Compare results** with the expected outcomes in `mcp_test_expected.md`
-4. **Note any discrepancies** between expected and actual tool usage
-5. **Validate mathematical accuracy** of all computed results
-6. **Test error handling** for edge cases and invalid inputs
+### How to Perform Tests
+
+1. **Act as an AI Agent**: Process each test prompt naturally as an AI agent would when helping a user with a mathematical question
+2. **Use Available MCP Tools**: When a prompt requires mathematical calculations, use the appropriate SharkMath MCP tools available to you
+3. **Provide Complete Responses**: Give full, helpful responses to each prompt, including explanations and context as appropriate
+4. **Record Actual Results**: Document the exact MCP tool calls made and their outputs
+5. **Compare Against Expected**: After completing each test, compare your actual results with the expected outcomes in `mcp_test_expected.md`
+6. **Document Discrepancies**: Note any differences between expected and actual tool usage, results, or response formats
+
+### Testing Methodology
+
+- **Natural Processing**: Don't force specific tool usage - respond to prompts as you naturally would
+- **Tool Selection**: Let the prompt content guide which MCP tools are most appropriate to use
+- **Result Validation**: Verify mathematical accuracy and appropriate error handling
+- **Response Quality**: Ensure responses are complete, accurate, and user-friendly
+- **Communicating Results**: Only provide an extremely brief summary of the results in chat.  Full results should be stored in MCP_TESTS_RESULTS.md
+
+### Example Test Flow
+
+1. **Read Prompt**: "What is 47 + 293?"
+2. **Process Naturally**: Recognize this as a simple addition problem
+3. **Use MCP Tool**: Call `mcp_sharkmath-mcp_calculate_arithmetic` with operation='add', a=47, b=293
+4. **Provide Response**: "47 + 293 = 340"
+5. **Record Results**: Document tool used, parameters, output, and final response
+6. **Compare Expected**: Check against expected result of 340 and expected tool usage
+7. **Note Status**: Mark as PASSED or FAILED with explanation
 
 ## Success Criteria
 
-- **Tool Selection**: Agent selects the expected MCP tool(s) for each prompt
-- **Mathematical Accuracy**: All calculations return correct results
-- **Error Handling**: Invalid operations return appropriate error messages
-- **Multi-Step Problems**: Complex problems are broken down correctly using multiple tools
-- **Response Completeness**: Agent provides complete answers with proper explanations
+- **Natural Tool Selection**: Agent selects appropriate MCP tools based on prompt content (may differ from "expected" tools if multiple valid approaches exist)
+- **Mathematical Accuracy**: All calculations return correct results within acceptable tolerance
+- **Error Handling**: Invalid operations return appropriate error messages with ❌ prefix
+- **Multi-Step Problems**: Complex problems are broken down logically using appropriate tool combinations
+- **Response Completeness**: Agent provides complete, helpful answers with proper explanations
+- **User Experience**: Responses feel natural and conversational while being mathematically precise
+
+## Validation Notes
+
+- **Tool Flexibility**: Multiple valid tool paths may exist for some problems - focus on correctness over exact tool matching
+- **Response Format**: Responses should be natural and user-friendly, not necessarily matching exact expected formats
+- **Mathematical Precision**: Results must be mathematically correct, with appropriate rounding and significant figures
+- **Error Robustness**: System should handle edge cases gracefully without crashes
 
 ## Usage Notes
 
 - Each test ID can be referenced when documenting results
-- Tests are designed to cover all 70+ mathematical functions in the SharkMath server
+- Tests are designed to cover all 70+ mathematical functions consolidated into the 15 SharkMath tools
 - Complex tests validate the agent's ability to chain multiple MCP tool calls
 - Error handling tests ensure robust operation under edge conditions
+- All tools use parameter-based routing with operation-specific parameters
