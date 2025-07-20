@@ -29,7 +29,7 @@ A comprehensive Model Context Protocol (MCP) server providing 70+ mathematical f
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/SharkMath-MCP.git
+git clone https://github.com/tonygod/SharkMath-MCP.git
 cd SharkMath-MCP
 ```
 

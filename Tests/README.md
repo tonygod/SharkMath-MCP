@@ -1,12 +1,41 @@
 # SharkMath MCP Server Test Suite
 
 ## Overview
-This test suite provides comprehensive testing for the SharkMath MCP (Model Context Protocol) server, which implements 70+ mathematical functions across 12 domains.
+This test suite provides comprehensive testing for the SharkMath MCP (Model Context Protocol) server. **As of Phase 1 refactoring, the server is transitioning from 70+ individual tools to 15-20 consolidated tools using parameter-based routing to address MCP tool registration limits.**
+
+## Current Architecture Status
+
+### **🔄 Refactoring in Progress (Phase 1)**
+- **Legacy System**: 70+ individual tools across 12 domains
+- **New System**: Consolidated tools with parameter-based routing  
+- **Prototype Status**: `convert_units` consolidated tool implemented and tested
+- **Test Coverage**: 28 tests for consolidated tools (Phase 1)
 
 ## Test Suite Components
 
-### 1. Individual Module Tests (`test_*.py`)
-Complete test coverage for each mathematical domain:
+### 1. **Consolidated Tools Tests (✅ NEW - Phase 1)**
+
+#### **test_consolidated_tools.py** ✅ **PASSED (28/28 tests)** - Primary test file for consolidated tools
+- **TestConsolidatedTools** - Tests for the `convert_units` consolidated tool
+  - Energy conversions (watts, kilowatts, horsepower, joules, calories, BTU)
+  - Temperature conversions (celsius, fahrenheit)
+  - Time conversions (milliseconds to years, all combinations)
+  - Length conversions (meters, feet, inches, centimeters, kilometers, miles)
+  - Weight conversions (kilograms, pounds)  
+  - Volume conversions (liters, gallons)
+  - Angle conversions (degrees, radians)
+  - Error handling and parameter validation
+- **TestParameterValidation** - Tests for validation utility functions
+  - Positive value validation
+  - Non-zero validation
+  - Range validation
+  - Angle unit validation
+
+### 2. Legacy Individual Module Tests (`test_*.py`)
+**Status**: Being phased out in favor of consolidated tests
+**Status**: Being phased out in favor of consolidated tests
+
+Complete test coverage for each mathematical domain (legacy approach):
 
 - **test_arithmetic.py** - Basic arithmetic operations (add, subtract, multiply, divide, calculate)
 - **test_power_operations.py** - Power functions (square, cube, power, square_root, cube_root, nth_root)
@@ -21,7 +50,7 @@ Complete test coverage for each mathematical domain:
 - **test_advanced_calculator.py** - Advanced operations (solve_quadratic, compound_interest, distance_2d, slope)
 - **test_matrix_operations.py** - Matrix operations (add, multiply, transpose, determinant)
 
-### 2. Test Execution Files
+### 3. Test Execution Files (Legacy System)
 
 #### ✅ **Working Test Files (Successfully Executed)**
 
