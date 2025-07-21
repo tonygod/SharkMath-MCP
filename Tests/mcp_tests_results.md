@@ -5,7 +5,7 @@ This document contains the actual test results for the SharkMath MCP server test
 
 ## Test Results by Category
 
-### 1. Basic Arithmetic Operations - COMPLETED ✅
+### 1. Arithmetic Operations Test Suite - COMPLETED ✅ (Test Suite 1)
 
 #### Test ARITH_001: Simple Addition
 - **Prompt**: "What is 47 + 293?"
@@ -49,7 +49,42 @@ This document contains the actual test results for the SharkMath MCP server test
 - **Actual Result**: `✅ (15 + 3) * 4 - 8 / 2 = 68.0`
 - **Status**: **PASSED** ✅
 
-**Basic Arithmetic Operations Summary: 6/6 PASSED (100%)**
+#### Test ARITH_007: Enhanced Character Validation - Valid Expression with ^ Operator  
+- **Prompt**: "Calculate 2^8 using the enhanced character validation"
+- **MCP Tool Used**: `mcp_sharkmath-mcp_calculate_arithmetic` with operation='calculate', expression="2^8"
+- **Expected Result**: 256
+- **Actual Result**: `✅ 2^8 = 256`
+- **Status**: **PASSED** ✅ (Enhanced feature working correctly)
+
+#### Test ARITH_008: Complex Expression with Multiple ^ Operators
+- **Prompt**: "Evaluate (3+2)^3-4*2^2"
+- **MCP Tool Used**: `mcp_sharkmath-mcp_calculate_arithmetic` with operation='calculate', expression="(3+2)^3-4*2^2"
+- **Expected Result**: 109
+- **Actual Result**: `✅ (3+2)^3-4*2^2 = 109`
+- **Status**: **PASSED** ✅
+
+#### Test ARITH_009: Nested Exponentiation
+- **Prompt**: "Calculate 2^3^2 (right-associative)"
+- **MCP Tool Used**: `mcp_sharkmath-mcp_calculate_arithmetic` with operation='calculate', expression="2^3^2"
+- **Expected Result**: 512 (2^(3^2) = 2^9 = 512)
+- **Actual Result**: `✅ 2^3^2 = 512`
+- **Status**: **PASSED** ✅
+
+#### Test ARITH_010: Mixed Exponentiation Operators
+- **Prompt**: "Evaluate 3^2*2**3"  
+- **MCP Tool Used**: `mcp_sharkmath-mcp_calculate_arithmetic` with operation='calculate', expression="3^2*2**3"
+- **Expected Result**: 72 (9*8 = 72)
+- **Actual Result**: `✅ 3^2*2**3 = 72`
+- **Status**: **PASSED** ✅
+
+#### Test ARITH_011: Enhanced Character Validation - Invalid Expression
+- **Prompt**: "Test rejection of expression with invalid characters: 2x + 3y"
+- **MCP Tool Used**: `mcp_sharkmath-mcp_calculate_arithmetic` with operation='calculate', expression="2x + 3y"
+- **Expected Result**: Error message about invalid characters
+- **Actual Result**: `❌ Value error: Invalid mathematical expression syntax`
+- **Status**: **PASSED** ✅ (Enhanced validation working correctly)
+
+**Arithmetic Operations Test Suite Summary: 11/11 PASSED (100%)**
 
 ### 2. Power and Root Operations - COMPLETED ✅
 

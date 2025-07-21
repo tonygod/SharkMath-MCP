@@ -59,20 +59,39 @@ class ArithmeticTool:
         return a / b
     
     def _calculate(self, expression: str) -> float:
-        """Evaluate a mathematical expression safely."""
-        # Basic safety check - only allow numbers, operators, parentheses and spaces
-        allowed_chars = set('0123456789+-*/.()')
+        """Evaluate a mathematical expression safely with enhanced features."""
+        # Enhanced character validation - support for functions, exponentiation, and constants
+        # Enhanced Character Validation: Allow letters, underscores, additional operators
+        allowed_chars = set('0123456789+-*/.**()^abcdefghijklmnopqrstuvwxyz_,')
         if not all(c in allowed_chars or c.isspace() for c in expression):
-            raise ValueError("Expression contains invalid characters. Only numbers, +, -, *, /, (, ) are allowed.")
+            invalid_chars = [c for c in expression if c not in allowed_chars and not c.isspace()]
+            raise ValueError(f"Expression contains invalid characters: {invalid_chars}. Supported: numbers, operators (+, -, *, /, **, ^), parentheses, letters, underscore, comma")
+        
+        # Exponentiation Support: Convert ^ to ** for Python evaluation
+        processed_expression = self._preprocess_expression(expression)
         
         try:
             # Evaluate the expression safely
-            result = eval(expression)
+            result = eval(processed_expression)
             return result
         except ZeroDivisionError:
             raise ZeroDivisionError("Division by zero in expression")
         except SyntaxError:
-            raise ValueError("Invalid mathematical expression")
+            raise ValueError("Invalid mathematical expression syntax")
+    
+    def _preprocess_expression(self, expression: str) -> str:
+        """
+        Preprocess mathematical expression for enhanced features.
+        Convert ^ to ** for exponentiation support.
+        """
+        # Replace ^ with ** for exponentiation, but be careful not to replace ** that's already there
+        processed = expression.replace('^', '**')
+        
+        # Clean up any triple asterisks that might result from **^ -> ****
+        while '***' in processed:
+            processed = processed.replace('***', '**')
+            
+        return processed
     
     # Power operations
     def _power(self, base: float, exponent: float) -> float:
@@ -246,7 +265,15 @@ if __name__ == "__main__":
     print(f"Subtract: {tool._subtract(10, 4)}")
     print(f"Multiply: {tool._multiply(6, 7)}")
     print(f"Divide: {tool._divide(15, 3)}")
+    
+    # Test basic calculate
     print(f"Calculate: {tool._calculate('2 + 3 * 4')}")
+    
+    # Enhanced expression testing with exponentiation
+    print(f"Exponentiation (^): {tool._calculate('2^3')}")  # Should give 8
+    print(f"Exponentiation (**): {tool._calculate('2**4')}")  # Should give 16
+    print(f"Complex with ^: {tool._calculate('(2+3)^2')}")  # Should give 25
+    print(f"Mixed operators: {tool._calculate('2*3^2+1')}")  # Should give 19
     
     # Test power operations
     print(f"Power: {tool._power(2, 8)}")

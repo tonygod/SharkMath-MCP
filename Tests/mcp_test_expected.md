@@ -5,6 +5,12 @@ This document contains the expected results for all mathematical test prompts de
 
 **Note**: The server uses 15 consolidated tools with parameter-based routing. All 70+ original mathematical functions have been consolidated into these tools.
 
+**Enhancement Updates (July 20, 2025):**
+- Added test cases ARITH_007-ARITH_011 for Enhanced Character Validation and Exponentiation Support features
+- Exponentiation support enables `^` operator (e.g., `2^8` = 256)
+- Enhanced character validation allows mathematical expressions with letters while blocking dangerous characters
+- New error handling demonstrates improved validation messages for invalid characters
+
 ## Expected Results by Test Category
 
 ### 1. Basic Arithmetic Operations (calculate_arithmetic tool)
@@ -44,6 +50,36 @@ This document contains the expected results for all mathematical test prompts de
 - **Expected Result**: 68
 - **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="(15 + 3) * 4 - 8 / 2")`
 - **Expected Response Format**: "✅ (15 + 3) × 4 - 8 ÷ 2 = 68"
+
+#### Test ARITH_007: Exponentiation with ^ Operator
+- **Input**: 2^8
+- **Expected Result**: 256
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="2^8")`
+- **Expected Response Format**: "✅ 2^8 = 256"
+
+#### Test ARITH_008: Complex Expression with Exponentiation
+- **Input**: (3+2)^3 - 4*2^2
+- **Expected Result**: 109 (5^3 - 4*4 = 125 - 16 = 109)
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="(3+2)^3 - 4*2^2")`
+- **Expected Response Format**: "✅ (3+2)^3 - 4*2^2 = 109"
+
+#### Test ARITH_009: Nested Exponentiation
+- **Input**: 2^3^2 (right-associative: 2^(3^2) = 2^9)
+- **Expected Result**: 512
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="2^3^2")`
+- **Expected Response Format**: "✅ 2^3^2 = 512"
+
+#### Test ARITH_010: Mixed Exponentiation Operators
+- **Input**: 3^2 * 2**3
+- **Expected Result**: 72 (9 * 8 = 72)
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="3^2 * 2**3")`
+- **Expected Response Format**: "✅ 3^2 * 2**3 = 72"
+
+#### Test ARITH_011: Enhanced Character Validation Error
+- **Input**: 2+3$invalid
+- **Expected Result**: Error message about invalid characters
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="2+3$invalid")`
+- **Expected Response Format**: "❌ Value error: Expression contains invalid characters: ['$']. Supported: numbers, operators (+, -, *, /, **, ^), parentheses, letters, underscore, comma"
 
 ### 2. Power and Root Operations
 
@@ -467,6 +503,12 @@ This document contains the expected results for all mathematical test prompts de
 - **Numerical Results**: Must match expected values within 0.01 tolerance
 - **Integer Results**: Must be exact matches
 - **Error Messages**: Must contain appropriate error indicators
+
+### Enhanced Feature Validation
+- **Exponentiation Support**: Both `^` and `**` operators must produce identical results
+- **Character Validation**: Letters and underscores should be allowed, dangerous characters ($, @, #, %) should be rejected
+- **Preprocessing**: `^` operator must be correctly converted to `**` before evaluation
+- **Error Messages**: Enhanced validation should provide clear feedback about which characters are invalid
 
 ### Response Format Standards
 - **Success Indicator**: ✅ prefix for successful calculations

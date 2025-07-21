@@ -167,10 +167,127 @@ class TestCalculateArithmetic(unittest.TestCase):
     def test_calculate_invalid_characters(self):
         """Test expression with invalid characters."""
         result = asyncio.run(self.async_test_helper(
-            'calculate', expression='2 + abc'
+            'calculate', expression='2 + $invalid'
         ))
         self.assertIn("❌", result)
         self.assertIn("invalid characters", result)
+    
+    # Enhanced Character Validation Tests
+    def test_enhanced_character_validation_allows_letters(self):
+        """Test that enhanced character validation allows letters and additional operators."""
+        # Test that letters are now allowed (though will cause NameError during evaluation)
+        result = asyncio.run(self.async_test_helper(
+            'calculate', expression='abc'
+        ))
+        self.assertIn("❌", result)
+        # Should get NameError, not character validation error
+        self.assertNotIn("invalid characters", result)
+        
+    def test_enhanced_character_validation_rejects_dangerous_characters(self):
+        """Test that enhanced character validation still rejects dangerous characters."""
+        invalid_chars_tests = [
+            ("2+3$", "$"),
+            ("hello@world", "@"),  
+            ("2#3", "#"),
+            ("test%case", "%"),
+        ]
+        
+        for expression, invalid_char in invalid_chars_tests:
+            with self.subTest(expression=expression, invalid_char=invalid_char):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("❌", result)
+                self.assertIn("invalid characters", result)
+                self.assertIn(invalid_char, result)
+    
+    def test_exponentiation_caret_operator_basic(self):
+        """Test basic exponentiation with ^ operator."""
+        result = asyncio.run(self.async_test_helper(
+            'calculate', expression='2^3'
+        ))
+        self.assertIn("✅", result)
+        self.assertIn("8", result)
+        self.assertIn("2^3 = 8", result)
+        
+    def test_exponentiation_caret_operator_complex(self):
+        """Test complex exponentiation expressions with ^ operator."""
+        test_cases = [
+            ("3^2", "9"),           # Basic exponentiation
+            ("(2+3)^2", "25"),      # Parentheses with exponentiation
+            ("2*3^2", "18"),        # Mixed operations
+            ("2^3+1", "9"),         # Addition after exponentiation
+            ("10^2-1", "99"),       # Subtraction after exponentiation
+            ("4^0.5", "2"),         # Fractional exponent (square root)
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                self.assertIn(expected, result)
+                self.assertIn(f"{expression} = {expected}", result)
+    
+    def test_exponentiation_operator_equivalence(self):
+        """Test that ^ and ** operators give same results."""
+        test_pairs = [
+            ("2^3", "2**3"),
+            ("3^2", "3**2"),
+            ("(4+1)^2", "(4+1)**2"),
+        ]
+        
+        for caret_expr, asterisk_expr in test_pairs:
+            with self.subTest(caret=caret_expr, asterisk=asterisk_expr):
+                result1 = asyncio.run(self.async_test_helper(
+                    'calculate', expression=caret_expr
+                ))
+                result2 = asyncio.run(self.async_test_helper(
+                    'calculate', expression=asterisk_expr
+                ))
+                
+                # Both should succeed
+                self.assertIn("✅", result1)
+                self.assertIn("✅", result2)
+                
+                # Extract the numeric results for comparison
+                import re
+                match1 = re.search(r'= ([\d.]+)', result1)
+                match2 = re.search(r'= ([\d.]+)', result2)
+                
+                if match1 and match2:
+                    value1 = float(match1.group(1))
+                    value2 = float(match2.group(1))
+                    self.assertAlmostEqual(value1, value2, places=10)
+    
+    def test_exponentiation_nested_right_associative(self):
+        """Test nested exponentiation is right associative."""
+        result = asyncio.run(self.async_test_helper(
+            'calculate', expression='2^3^2'
+        ))
+        self.assertIn("✅", result)
+        # 2^3^2 = 2^(3^2) = 2^9 = 512 (right associative)
+        self.assertIn("512", result)
+    
+    def test_expression_backward_compatibility(self):
+        """Test that existing functionality still works after enhancements."""
+        test_cases = [
+            ("2+3", "5"),
+            ("10-4", "6"), 
+            ("3*4", "12"),
+            ("15/3", "5"),
+            ("(2+3)*4", "20"),
+            ("2**3", "8"),  # Existing ** support unchanged
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                self.assertIn(expected, result)
         
     # Power Operations Tests
     def test_power_positive_integers(self):
@@ -425,6 +542,22 @@ class TestArithmeticToolIntegration(unittest.TestCase):
         """Test that we have the expected number of operations."""
         operations = self.tool.get_supported_operations()
         self.assertEqual(len(operations), 11, f"Expected 11 operations, got {len(operations)}")
+    
+    def test_expression_preprocessing_method(self):
+        """Test the _preprocess_expression method for exponentiation operator conversion."""
+        test_cases = [
+            ("2^3", "2**3"),
+            ("a^b", "a**b"),
+            ("2**3", "2**3"),      # Should remain unchanged
+            ("2^3^4", "2**3**4"),
+            ("x^(y+z)", "x**(y+z)"),
+            ("(a^b)^c", "(a**b)**c"),
+        ]
+        
+        for input_expr, expected_output in test_cases:
+            with self.subTest(input=input_expr, expected=expected_output):
+                result = self.tool._preprocess_expression(input_expr)
+                self.assertEqual(result, expected_output)
 
 
 if __name__ == '__main__':

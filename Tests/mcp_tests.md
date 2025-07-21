@@ -3,6 +3,11 @@
 ## Overview
 This document contains comprehensive mathematical questions designed to test the SharkMath MCP server through AI agent interactions. Each prompt is designed to trigger specific **MCP tools** and validate their functionality in real-world usage scenarios.
 
+**Enhancement Notes (July 20, 2025):**
+- Tests ARITH_007-ARITH_011 validate Enhanced Character Validation and Exponentiation Support features
+- Enhanced character validation expands allowed characters to include letters, underscores, and additional operators while maintaining security
+- Exponentiation support adds `^` operator alongside existing `**` operator
+
 ## Consolidated Tool Architecture
 
 ### **All Available Tools:**
@@ -56,6 +61,31 @@ This document contains comprehensive mathematical questions designed to test the
 **Prompt**: "Evaluate this expression: (15 + 3) * 4 - 8 / 2"
 **Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
 **Test ID**: ARITH_006
+
+#### Test 1.7 - Exponentiation with ^ Operator
+**Prompt**: "Calculate 2^8 using the caret operator."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: ARITH_007
+
+#### Test 1.8 - Complex Expression with Exponentiation
+**Prompt**: "Evaluate the expression: (3+2)^3 - 4*2^2"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: ARITH_008
+
+#### Test 1.9 - Nested Exponentiation
+**Prompt**: "What is 2^3^2? (This should be right-associative: 2^(3^2))"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: ARITH_009
+
+#### Test 1.10 - Mixed Exponentiation Operators
+**Prompt**: "Calculate 3^2 * 2**3 to verify both operators work."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: ARITH_010
+
+#### Test 1.11 - Enhanced Character Validation Error
+**Prompt**: "Try to calculate this invalid expression: 2+3$invalid"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: ARITH_011
 
 ### 2. Power and Root Operations (calculate_arithmetic tool)
 
@@ -414,6 +444,7 @@ This document contains comprehensive mathematical questions designed to test the
 - **Result Validation**: Verify mathematical accuracy and appropriate error handling
 - **Response Quality**: Ensure responses are complete, accurate, and user-friendly
 - **Communicating Results**: Only provide an extremely brief summary of the results in chat.  Full results should be stored in MCP_TESTS_RESULTS.md
+- **Enhanced Feature Testing**: Tests ARITH_007-ARITH_011 specifically validate exponentiation (`^`) operator support and enhanced character validation features
 
 ### Example Test Flow
 
@@ -433,6 +464,7 @@ This document contains comprehensive mathematical questions designed to test the
 - **Multi-Step Problems**: Complex problems are broken down logically using appropriate tool combinations
 - **Response Completeness**: Agent provides complete, helpful answers with proper explanations
 - **User Experience**: Responses feel natural and conversational while being mathematically precise
+- **Enhanced Features**: Exponentiation using `^` operator works correctly, enhanced character validation properly allows letters while rejecting dangerous characters
 
 ## Validation Notes
 
