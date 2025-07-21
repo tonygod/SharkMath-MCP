@@ -131,7 +131,7 @@ SharkMath uses **parameter-based routing** where each consolidated tool accepts 
 - `operation="roi"` - Return on investment
 - `operation="mortgage_payment"` - Mortgage payment calculation
 
-*[See complete API documentation for all 15 consolidated tools and 150+ operations]*
+**📖 [Complete API Documentation](Docs/API_DOCUMENTATION.md)** - Full reference for all tools and operations
 
 ## 🏗️ Architecture
 
