@@ -73,7 +73,14 @@ SharkMath uses **parameter-based routing** where each consolidated tool accepts 
 - `operation="subtract"` - Subtraction: `a - b`
 - `operation="multiply"` - Multiplication: `a * b`
 - `operation="divide"` - Division with zero-division protection: `a / b`
-- `operation="calculate"` - Safe expression evaluation
+- `operation="calculate"` - **Enhanced expression evaluation with 20+ mathematical functions**
+  - **Basic Functions**: `sqrt()`, `pow()`, `abs()`, `round()`
+  - **Trigonometric**: `sin()`, `cos()`, `tan()`, `asin()`, `acos()`, `atan()`
+  - **Logarithmic**: `log()`, `log10()`, `ln()` (natural log alias)
+  - **Hyperbolic**: `sinh()`, `cosh()`, `tanh()`
+  - **Rounding**: `floor()`, `ceil()`, `trunc()`
+  - **Constants**: `pi`, `e`
+  - **Examples**: `sqrt(25)`, `sin(pi/2)`, `log(e)`, `sqrt((5-0)^2 + (12-0)^2)`
 - `operation="power"` - Exponentiation: `base^exponent`
 - `operation="square"` - Square: `n²`
 - `operation="cube"` - Cube: `n³`
@@ -132,7 +139,7 @@ The project uses a **consolidated tool architecture** with parameter-based routi
 
 ```
 sharkmath_server.py          # Main MCP server (15 consolidated tools)
-├── arithmetic.py            # calculate_arithmetic (arithmetic + power operations)
+├── arithmetic.py            # calculate_arithmetic (arithmetic + power operations + 20+ math functions)
 ├── trigonometric.py         # calculate_trigonometry (trig + inverse trig functions)
 ├── stats_operations.py      # calculate_statistics (statistical operations + percentiles)
 ├── convert_units.py         # convert_units (80+ unit conversions)

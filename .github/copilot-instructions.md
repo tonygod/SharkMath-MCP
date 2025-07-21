@@ -58,7 +58,8 @@ uv run SharkMath/sharkmath_server.py
 
 ### File Organization
 - **Root level** - Mathematical calculation MCP server with parameter-based routing
-  - `arithmetic.py` - `calculate_arithmetic` - Basic arithmetic and power operations
+  - `arithmetic.py` - `calculate_arithmetic` - Basic arithmetic, enhanced expression evaluation with mathematical functions, and power operations
+  - **Enhanced Expression Evaluation**: Expression evaluation now supports mathematical functions (sqrt, sin, cos, tan, asin, acos, atan, log, log10, ln, sinh, cosh, tanh, floor, ceil, trunc, abs, round, pow) and constants (pi, e)
   - `trigonometric.py` - `calculate_trigonometry` - Trigonometric functions with radians/degrees support
   - `stats_operations.py` - `calculate_statistics` - Statistical operations and analysis
   - `convert_units.py` - `convert_units` - Unit conversions across multiple measurement types
@@ -92,7 +93,8 @@ uv run SharkMath/sharkmath_server.py
 
 ### Mathematical Tools (SharkMath Server)
 #### **Arithmetic Operations** (`arithmetic.py`)
-- **calculate_arithmetic** - Basic arithmetic (add, subtract, multiply, divide), expression evaluation, and power operations (square, cube, roots)
+- **calculate_arithmetic** - Basic arithmetic (add, subtract, multiply, divide), enhanced expression evaluation with mathematical functions, and power operations (square, cube, roots)
+  - **Enhanced Expression Evaluation**: Safe expression evaluation with 20+ mathematical functions including sqrt(), sin(), cos(), tan(), log(), ln(), abs(), floor(), ceil(), and mathematical constants (pi, e)
 
 #### **Trigonometric Functions** (`trigonometric.py`)
 - **calculate_trigonometry** - Standard trigonometric functions (sin, cos, tan) and inverse functions, with support for both radians and degrees

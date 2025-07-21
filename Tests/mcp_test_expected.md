@@ -81,6 +81,74 @@ This document contains the expected results for all mathematical test prompts de
 - **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="2+3$invalid")`
 - **Expected Response Format**: "❌ Value error: Expression contains invalid characters: ['$']. Supported: numbers, operators (+, -, *, /, **, ^), parentheses, letters, underscore, comma"
 
+### 1.1. Enhanced Mathematical Functions Tests (calculate_arithmetic tool)
+
+#### Test FUNC_001: Mathematical Functions - Square Root
+- **Input**: sqrt(25)
+- **Expected Result**: 5.0
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="sqrt(25)")`
+- **Expected Response Format**: "✅ sqrt(25) = 5.0"
+
+#### Test FUNC_002: Mathematical Functions - Trigonometric (sine)
+- **Input**: sin(pi/2)
+- **Expected Result**: 1.0
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="sin(pi/2)")`
+- **Expected Response Format**: "✅ sin(pi/2) = 1.0"
+
+#### Test FUNC_003: Mathematical Functions - Natural Logarithm
+- **Input**: ln(e)
+- **Expected Result**: 1.0
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="ln(e)")`
+- **Expected Response Format**: "✅ ln(e) = 1.0"
+
+#### Test FUNC_004: Mathematical Functions - Mathematical Constants
+- **Input**: 2*pi
+- **Expected Result**: 6.283185307179586
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="2*pi")`
+- **Expected Response Format**: "✅ 2*pi = 6.283185307179586"
+
+#### Test FUNC_005: Mathematical Functions - Complex Expression
+- **Input**: sqrt((5-0)^2 + (12-0)^2)
+- **Expected Result**: 13.0
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="sqrt((5-0)^2 + (12-0)^2)")`
+- **Expected Response Format**: "✅ sqrt((5-0)^2 + (12-0)^2) = 13.0"
+
+#### Test FUNC_006: Mathematical Functions - Floor and Ceiling
+- **Input**: floor(3.7) + ceil(2.3)
+- **Expected Result**: 6
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="floor(3.7) + ceil(2.3)")`
+- **Expected Response Format**: "✅ floor(3.7) + ceil(2.3) = 6"
+
+#### Test FUNC_007: Mathematical Functions - Hyperbolic Functions
+- **Input**: sinh(0) + cosh(0) + tanh(0)
+- **Expected Result**: 1.0 (0 + 1 + 0 = 1)
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="sinh(0) + cosh(0) + tanh(0)")`
+- **Expected Response Format**: "✅ sinh(0) + cosh(0) + tanh(0) = 1.0"
+
+#### Test FUNC_008: Mathematical Functions - Logarithms (base 10)
+- **Input**: log10(100) + log(e)
+- **Expected Result**: 3.0 (2 + 1 = 3)
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="log10(100) + log(e)")`
+- **Expected Response Format**: "✅ log10(100) + log(e) = 3.0"
+
+#### Test FUNC_009: Mathematical Functions - Domain Error (sqrt)
+- **Input**: sqrt(-1)
+- **Expected Result**: Domain error for negative square root
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="sqrt(-1)")`
+- **Expected Response Format**: "❌ Value error: Cannot calculate square root of negative number: -1"
+
+#### Test FUNC_010: Mathematical Functions - Domain Error (log)
+- **Input**: log(0)
+- **Expected Result**: Domain error for log of zero
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="log(0)")`
+- **Expected Response Format**: "❌ Value error: Cannot calculate logarithm of non-positive number: 0"
+
+#### Test FUNC_011: Mathematical Functions - Inverse Trigonometric
+- **Input**: asin(1) + acos(0)
+- **Expected Result**: 3.141592653589793 (π/2 + π/2 = π)
+- **MCP Tool**: `calculate_arithmetic(operation='calculate', expression="asin(1) + acos(0)")`
+- **Expected Response Format**: "✅ asin(1) + acos(0) = 3.141592653589793"
+
 ### 2. Power and Root Operations
 
 #### Test POWER_001: Basic Exponentiation

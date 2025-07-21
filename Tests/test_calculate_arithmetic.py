@@ -288,6 +288,232 @@ class TestCalculateArithmetic(unittest.TestCase):
                 ))
                 self.assertIn("✅", result)
                 self.assertIn(expected, result)
+    
+    # Phase 1.3 Mathematical Functions Tests
+    def test_basic_functions(self):
+        """Test Phase 1.3 basic mathematical functions."""
+        test_cases = [
+            ("sqrt(25)", "5"),
+            ("pow(2, 3)", "8"),
+            ("abs(-5)", "5"),
+            ("round(3.7)", "4"),
+            ("abs(5)", "5"),
+            ("round(3.2)", "3"),
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                self.assertIn(expected, result)
+    
+    def test_trigonometric_functions(self):
+        """Test Phase 1.3 trigonometric functions."""
+        test_cases = [
+            ("sin(0)", "0"),
+            ("cos(0)", "1"),
+            ("tan(0)", "0"),
+            ("sin(pi/2)", "1"),
+            ("cos(pi/2)", "6.123233995736766e-17"),  # Very close to 0 due to floating point precision
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                if expected != "6.123233995736766e-17":  # Special case for cos(pi/2)
+                    self.assertIn(expected, result)
+                else:
+                    # For cos(pi/2), just check it's very close to 0
+                    import re
+                    match = re.search(r'= ([-.\de-]+)', result)
+                    if match:
+                        value = float(match.group(1))
+                        self.assertLess(abs(value), 1e-15)
+    
+    def test_inverse_trigonometric_functions(self):
+        """Test Phase 1.3 inverse trigonometric functions."""
+        import math
+        test_cases = [
+            ("asin(1)", str(math.pi/2)),
+            ("acos(1)", "0"),
+            ("atan(1)", str(math.pi/4)),
+            ("asin(0)", "0"),
+            ("acos(0)", str(math.pi/2)),
+        ]
+        
+        for expression, expected_str in test_cases:
+            with self.subTest(expression=expression, expected=expected_str):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                # For trig functions, compare numerically due to precision
+                import re
+                match = re.search(r'= ([-.\de-]+)', result)
+                if match:
+                    actual_value = float(match.group(1))
+                    expected_value = float(expected_str)
+                    self.assertAlmostEqual(actual_value, expected_value, places=10)
+    
+    def test_logarithmic_functions(self):
+        """Test Phase 1.3 logarithmic functions."""
+        test_cases = [
+            ("log(e)", "1"),
+            ("log10(100)", "2"),
+            ("ln(e)", "1"),
+            ("log10(10)", "1"),
+            ("log(1)", "0"),
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                # Check numerical value due to precision
+                import re
+                match = re.search(r'= ([-.\de-]+)', result)
+                if match:
+                    actual_value = float(match.group(1))
+                    expected_value = float(expected)
+                    self.assertAlmostEqual(actual_value, expected_value, places=10)
+    
+    def test_hyperbolic_functions(self):
+        """Test Phase 1.3 hyperbolic functions."""
+        test_cases = [
+            ("sinh(0)", "0"),
+            ("cosh(0)", "1"),
+            ("tanh(0)", "0"),
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                self.assertIn(expected, result)
+    
+    def test_rounding_functions(self):
+        """Test Phase 1.3 rounding functions."""
+        test_cases = [
+            ("floor(3.7)", "3"),
+            ("ceil(3.2)", "4"),
+            ("trunc(3.9)", "3"),
+            ("floor(-2.3)", "-3"),  # floor of negative goes down
+            ("ceil(-2.3)", "-2"),   # ceil of negative goes up
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                self.assertIn(expected, result)
+    
+    def test_mathematical_constants(self):
+        """Test Phase 1.3 mathematical constants."""
+        import math
+        test_cases = [
+            ("pi", math.pi),
+            ("e", math.e),
+            ("2*pi", 2*math.pi),
+            ("e*2", 2*math.e),
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                # Check numerical value due to precision
+                import re
+                match = re.search(r'= ([-.\de-]+)', result)
+                if match:
+                    actual_value = float(match.group(1))
+                    self.assertAlmostEqual(actual_value, expected, places=10)
+    
+    def test_complex_mathematical_expressions(self):
+        """Test complex expressions combining multiple Phase 1.3 features."""
+        test_cases = [
+            ("sqrt(25) + sin(pi/2)", 6.0),  # 5 + 1 = 6
+            ("sqrt((5-0)^2 + (12-0)^2)", 13.0),  # Distance formula: sqrt(25+144) = sqrt(169) = 13
+            ("log(e^3)", 3.0),  # log(e^3) = 3
+            ("pow(2, 3) + sqrt(16)", 12.0),  # 8 + 4 = 12
+            ("abs(-10) + floor(3.9)", 13.0),  # 10 + 3 = 13
+        ]
+        
+        for expression, expected in test_cases:
+            with self.subTest(expression=expression, expected=expected):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("✅", result)
+                # Check numerical value due to precision
+                import re
+                match = re.search(r'= ([-.\de-]+)', result)
+                if match:
+                    actual_value = float(match.group(1))
+                    self.assertAlmostEqual(actual_value, expected, places=10)
+    
+    # Error Handling Tests for Phase 1.3 Functions
+    def test_sqrt_negative_number_error(self):
+        """Test sqrt domain error for negative numbers."""
+        result = asyncio.run(self.async_test_helper(
+            'calculate', expression='sqrt(-1)'
+        ))
+        self.assertIn("❌", result)
+        self.assertIn("Cannot calculate square root of negative number", result)
+    
+    def test_log_domain_errors(self):
+        """Test logarithm domain errors."""
+        error_cases = [
+            ("log(0)", "Cannot calculate logarithm of non-positive number"),
+            ("log(-1)", "Cannot calculate logarithm of non-positive number"),
+            ("log10(0)", "Cannot calculate log10 of non-positive number"),
+            ("ln(-5)", "Cannot calculate logarithm of non-positive number"),
+        ]
+        
+        for expression, expected_error in error_cases:
+            with self.subTest(expression=expression, error=expected_error):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("❌", result)
+                self.assertIn(expected_error, result)
+    
+    def test_asin_acos_domain_errors(self):
+        """Test inverse trigonometric domain errors."""
+        error_cases = [
+            ("asin(2)", "asin input must be between -1 and 1"),
+            ("asin(-2)", "asin input must be between -1 and 1"),
+            ("acos(1.5)", "acos input must be between -1 and 1"),
+            ("acos(-1.5)", "acos input must be between -1 and 1"),
+        ]
+        
+        for expression, expected_error in error_cases:
+            with self.subTest(expression=expression, error=expected_error):
+                result = asyncio.run(self.async_test_helper(
+                    'calculate', expression=expression
+                ))
+                self.assertIn("❌", result)
+                self.assertIn(expected_error, result)
+    
+    def test_unsupported_function_error(self):
+        """Test error for unsupported function names."""
+        result = asyncio.run(self.async_test_helper(
+            'calculate', expression='unsupported_func(5)'
+        ))
+        self.assertIn("❌", result)
+        self.assertIn("Unsupported function or variable", result)
         
     # Power Operations Tests
     def test_power_positive_integers(self):

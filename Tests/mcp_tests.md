@@ -5,8 +5,11 @@ This document contains comprehensive mathematical questions designed to test the
 
 **Enhancement Notes (July 20, 2025):**
 - Tests ARITH_007-ARITH_011 validate Enhanced Character Validation and Exponentiation Support features
+- Tests FUNC_001-FUNC_011 validate Mathematical Functions Library with 20+ mathematical functions
 - Enhanced character validation expands allowed characters to include letters, underscores, and additional operators while maintaining security
 - Exponentiation support adds `^` operator alongside existing `**` operator
+- Mathematical functions include: sqrt, sin, cos, tan, asin, acos, atan, log, log10, ln, sinh, cosh, tanh, floor, ceil, trunc, abs, round, pow
+- Mathematical constants: pi, e
 
 ## Consolidated Tool Architecture
 
@@ -86,6 +89,61 @@ This document contains comprehensive mathematical questions designed to test the
 **Prompt**: "Try to calculate this invalid expression: 2+3$invalid"
 **Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
 **Test ID**: ARITH_011
+
+#### Test 1.12 - Mathematical Functions - Square Root
+**Prompt**: "What is the square root of 25?"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_001
+
+#### Test 1.13 - Mathematical Functions - Trigonometric (sine)
+**Prompt**: "Calculate sin(π/2) using the expression calculator."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_002
+
+#### Test 1.14 - Mathematical Functions - Natural Logarithm
+**Prompt**: "Find ln(e) using the expression evaluator."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_003
+
+#### Test 1.15 - Mathematical Functions - Mathematical Constants
+**Prompt**: "What is the value of 2*pi?"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_004
+
+#### Test 1.16 - Mathematical Functions - Complex Expression
+**Prompt**: "Evaluate this distance formula: sqrt((5-0)^2 + (12-0)^2)"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_005
+
+#### Test 1.17 - Mathematical Functions - Floor and Ceiling
+**Prompt**: "Calculate floor(3.7) + ceil(2.3)."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_006
+
+#### Test 1.18 - Mathematical Functions - Hyperbolic Functions
+**Prompt**: "Find sinh(0) + cosh(0) + tanh(0)."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_007
+
+#### Test 1.19 - Mathematical Functions - Logarithms (base 10)
+**Prompt**: "Calculate log10(100) + log(e)."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_008
+
+#### Test 1.20 - Mathematical Functions - Domain Error (sqrt)
+**Prompt**: "What happens when you calculate sqrt(-1)?"
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_009
+
+#### Test 1.21 - Mathematical Functions - Domain Error (log)
+**Prompt**: "Try to calculate log(0)."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_010
+
+#### Test 1.22 - Mathematical Functions - Inverse Trigonometric
+**Prompt**: "Calculate asin(1) + acos(0)."
+**Expected MCP Tool**: `calculate_arithmetic` with operation='calculate'
+**Test ID**: FUNC_011
 
 ### 2. Power and Root Operations (calculate_arithmetic tool)
 
@@ -445,6 +503,7 @@ This document contains comprehensive mathematical questions designed to test the
 - **Response Quality**: Ensure responses are complete, accurate, and user-friendly
 - **Communicating Results**: Only provide an extremely brief summary of the results in chat.  Full results should be stored in MCP_TESTS_RESULTS.md
 - **Enhanced Feature Testing**: Tests ARITH_007-ARITH_011 specifically validate exponentiation (`^`) operator support and enhanced character validation features
+- **Mathematical Functions Testing**: Tests FUNC_001-FUNC_011 validate the Mathematical Functions Library with comprehensive function support and domain validation
 
 ### Example Test Flow
 
@@ -464,7 +523,7 @@ This document contains comprehensive mathematical questions designed to test the
 - **Multi-Step Problems**: Complex problems are broken down logically using appropriate tool combinations
 - **Response Completeness**: Agent provides complete, helpful answers with proper explanations
 - **User Experience**: Responses feel natural and conversational while being mathematically precise
-- **Enhanced Features**: Exponentiation using `^` operator works correctly, enhanced character validation properly allows letters while rejecting dangerous characters
+- **Enhanced Features**: Exponentiation using `^` operator works correctly, enhanced character validation properly allows letters while rejecting dangerous characters, mathematical functions (sqrt, sin, cos, tan, asin, acos, atan, log, log10, ln, sinh, cosh, tanh, floor, ceil, trunc, abs, round, pow) and constants (pi, e) work correctly
 
 ## Validation Notes
 
