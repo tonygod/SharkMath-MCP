@@ -16,11 +16,12 @@ This document contains comprehensive mathematical questions designed to test the
 8. **`analyze_numbers`** - Number theory and combinatorics (9 operations)
 9. **`solve_equations`** - Equation solvers (4 operations)
 10. **`calculate_geometry_2d`** - 2D geometry calculations (8 operations)
-11. **`manipulate_matrices`** - Matrix operations (4 operations)
-12. **`financial_calculations`** - Financial and business calculations (11 operations)
-13. **`computer_science_tools`** - Computer science functions (12 operations)
-14. **`data_analysis`** - Advanced data analysis functions (10 operations)
-15. **`utility_functions`** - Utility functions (5 operations)
+11. **`calculate_geometry_3d`** - 3D geometry and vector operations (14 operations)
+12. **`manipulate_matrices`** - Matrix operations (4 operations)
+13. **`financial_calculations`** - Financial and business calculations (11 operations)
+14. **`computer_science_tools`** - Computer science functions (12 operations)
+15. **`data_analysis`** - Advanced data analysis functions (10 operations)
+16. **`utility_functions`** - Utility functions (5 operations)
 
 ## Test Categories
 
@@ -230,108 +231,170 @@ This document contains comprehensive mathematical questions designed to test the
 **Expected MCP Tool**: `calculate_geometry_2d` with operation='slope'
 **Test ID**: ADV_003
 
-#### Test 8.4 - Compound Interest
-**Prompt**: "Calculate compound interest: $1000 principal, 5% annual rate, 3 years, compounded annually."
-**Expected MCP Tool**: `financial_calculations` with operation='compound_interest'
+#### Test 8.4 - 3D Distance Calculation (Critical User Case)
+**Prompt**: "Calculate the distance between the 3D points [10,10,10] and [120,130,140]."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='distance_3d'
 **Test ID**: ADV_004
 
-### 9. Combinatorics and Number Theory (analyze_numbers tool)
+#### Test 8.5 - Compound Interest
+**Prompt**: "Calculate compound interest: $1000 principal, 5% annual rate, 3 years, compounded annually."
+**Expected MCP Tool**: `financial_calculations` with operation='compound_interest'
+**Test ID**: ADV_005
 
-#### Test 9.1 - Factorial
+### 9. 3D Geometry and Vector Operations (calculate_geometry_3d tool)
+
+#### Test 9.1 - 3D Distance Between Points
+**Prompt**: "Find the distance between 3D points (0,0,0) and (3,4,12)."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='distance_3d'
+**Test ID**: GEO3D_001
+
+#### Test 9.2 - 3D Midpoint Calculation
+**Prompt**: "What is the midpoint between 3D points (2,4,6) and (8,12,18)?"
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='midpoint_3d'
+**Test ID**: GEO3D_002
+
+#### Test 9.3 - Vector Magnitude
+**Prompt**: "Calculate the magnitude of vector [5,12,13]."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='vector_magnitude'
+**Test ID**: GEO3D_003
+
+#### Test 9.4 - Vector Dot Product
+**Prompt**: "Find the dot product of vectors [1,2,3] and [4,5,6]."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='vector_dot_product'
+**Test ID**: GEO3D_004
+
+#### Test 9.5 - Vector Cross Product
+**Prompt**: "Calculate the cross product of unit vectors i=[1,0,0] and j=[0,1,0]."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='vector_cross_product'
+**Test ID**: GEO3D_005
+
+#### Test 9.6 - Angle Between Vectors
+**Prompt**: "What is the angle between vectors [1,0,0] and [0,1,0] in degrees?"
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='vector_angle'
+**Test ID**: GEO3D_006
+
+#### Test 9.7 - Sphere Volume
+**Prompt**: "Calculate the volume of a sphere with radius 4 units."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='sphere_volume'
+**Test ID**: GEO3D_007
+
+#### Test 9.8 - Cylinder Surface Area
+**Prompt**: "Find the total surface area of a cylinder with radius 3 and height 8."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='cylinder_surface_area'
+**Test ID**: GEO3D_008
+
+#### Test 9.9 - Cone Volume
+**Prompt**: "What is the volume of a cone with radius 6 and height 9?"
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='cone_volume'
+**Test ID**: GEO3D_009
+
+#### Test 9.10 - Rectangular Prism (Box) Surface Area
+**Prompt**: "Calculate the surface area of a box with dimensions 5×4×3."
+**Expected MCP Tool**: `calculate_geometry_3d` with operation='rectangular_prism_surface_area'
+**Test ID**: GEO3D_010
+
+### 10. Combinatorics and Number Theory (analyze_numbers tool)
+
+#### Test 10.1 - Factorial
 **Prompt**: "What is 8 factorial?"
 **Expected MCP Tool**: `analyze_numbers` with operation='factorial'
 **Test ID**: COMB_001
 
-#### Test 9.2 - Permutation
+#### Test 10.2 - Permutation
 **Prompt**: "How many ways can I arrange 5 items taken 3 at a time?"
 **Expected MCP Tool**: `analyze_numbers` with operation='permutation'
 **Test ID**: COMB_002
 
-#### Test 9.3 - Combination
+#### Test 10.3 - Combination
 **Prompt**: "Calculate C(10,4) - combinations of 10 items taken 4 at a time."
 **Expected MCP Tool**: `analyze_numbers` with operation='combination'
 **Test ID**: COMB_003
 
-#### Test 9.4 - Fibonacci Number
+#### Test 10.4 - Fibonacci Number
 **Prompt**: "What is the 12th Fibonacci number?"
 **Expected MCP Tool**: `analyze_numbers` with operation='fibonacci'
 **Test ID**: COMB_004
 
-#### Test 9.5 - Prime Check
+#### Test 10.5 - Prime Check
 **Prompt**: "Is 97 a prime number?"
 **Expected MCP Tool**: `analyze_numbers` with operation='is_prime'
 **Test ID**: NUM_001
 
-#### Test 9.6 - GCD Calculation
+#### Test 10.6 - GCD Calculation
 **Prompt**: "Find the greatest common divisor of 48 and 18."
 **Expected MCP Tool**: `analyze_numbers` with operation='gcd'
 **Test ID**: NUM_002
 
-### 10. Precision and Rounding Operations (format_precision tool)
+### 11. Precision and Rounding Operations (format_precision tool)
 
-#### Test 10.1 - Decimal Rounding
+#### Test 11.1 - Decimal Rounding
 **Prompt**: "Round 3.14159 to 3 decimal places."
 **Expected MCP Tool**: `format_precision` with operation='round'
 **Test ID**: PREC_001
 
-#### Test 10.2 - Floor Function
+#### Test 11.2 - Floor Function
 **Prompt**: "What is the floor of -2.7?"
 **Expected MCP Tool**: `format_precision` with operation='floor'
 **Test ID**: PREC_002
 
-#### Test 10.3 - Ceiling Function
+#### Test 11.3 - Ceiling Function
 **Prompt**: "Calculate the ceiling of 4.1."
 **Expected MCP Tool**: `format_precision` with operation='ceiling'
 **Test ID**: PREC_003
 
-#### Test 10.4 - Absolute Value
+#### Test 11.4 - Absolute Value
 **Prompt**: "Find the absolute value of -15.8."
 **Expected MCP Tool**: `format_precision` with operation='absolute'
 **Test ID**: PREC_004
 
-### 11. Hyperbolic Functions (calculate_hyperbolic tool)
+### 12. Hyperbolic Functions (calculate_hyperbolic tool)
 
-#### Test 11.1 - Hyperbolic Sine
+#### Test 12.1 - Hyperbolic Sine
 **Prompt**: "Calculate sinh(2)."
 **Expected MCP Tool**: `calculate_hyperbolic` with operation='sinh'
 **Test ID**: HYP_001
 
-#### Test 11.2 - Hyperbolic Cosine
+#### Test 12.2 - Hyperbolic Cosine
 **Prompt**: "What is cosh(0)?"
 **Expected MCP Tool**: `calculate_hyperbolic` with operation='cosh'
 **Test ID**: HYP_002
 
-#### Test 11.3 - Hyperbolic Tangent
+#### Test 12.3 - Hyperbolic Tangent
 **Prompt**: "Find tanh(1)."
 **Expected MCP Tool**: `calculate_hyperbolic` with operation='tanh'
 **Test ID**: HYP_003
 
-### 12. Complex Multi-Step Problems (Multiple Consolidated Tools)
+### 13. Complex Multi-Step Problems (Multiple Consolidated Tools)
 
-#### Test 12.1 - Engineering Problem
+#### Test 13.1 - Engineering Problem
 **Prompt**: "A circular tank has a radius of 5 meters. Calculate its area and then find the volume if the height is 3 meters. Also convert the volume to gallons."
 **Expected MCP Tools**: `calculate_arithmetic` (power, multiply), `convert_units` (liters_to_gallons)
 **Test ID**: COMPLEX_001
 
-#### Test 12.2 - Financial Analysis
+#### Test 13.2 - Financial Analysis
 **Prompt**: "I invest $5000 at 4% annual interest compounded quarterly for 10 years. What's the final amount? Then calculate what percentage increase this represents."
 **Expected MCP Tools**: `financial_calculations`, `calculate_arithmetic` (subtract, divide, multiply)
 **Test ID**: COMPLEX_002
 
-#### Test 12.3 - Statistical Analysis
+#### Test 13.3 - Statistical Analysis
 **Prompt**: "Given the dataset [23, 45, 67, 34, 56, 78, 12, 89, 45, 56], find the mean, median, mode, and standard deviation. Then determine which values are within one standard deviation of the mean."
 **Expected MCP Tools**: `calculate_statistics` (mean, median, mode, standard_deviation), `calculate_arithmetic` (subtract), `format_precision` (absolute)
 **Test ID**: COMPLEX_003
 
-#### Test 12.4 - Geometry and Trigonometry
+#### Test 13.4 - Geometry and Trigonometry
 **Prompt**: "In a right triangle, one leg is 3 units and the hypotenuse is 5 units. Find the other leg, then calculate all three angles in degrees."
 **Expected MCP Tools**: `calculate_arithmetic` (power, subtract, square_root), `calculate_trigonometry` (asin, acos), `convert_units` (radians_to_degrees)
 **Test ID**: COMPLEX_004
 
-#### Test 12.5 - Matrix Operations Chain
+#### Test 13.5 - Matrix Operations Chain
 **Prompt**: "Given matrix A = [[2,3],[1,4]] and B = [[1,2],[3,1]], calculate A+B, then find the determinant of the result, and finally check if this determinant is a perfect square."
 **Expected MCP Tools**: `manipulate_matrices`, `analyze_numbers`
 **Test ID**: COMPLEX_005
+
+#### Test 13.6 - 3D Vector Analysis
+**Prompt**: "Given vectors u=[2,3,6] and v=[1,4,2], calculate their dot product, cross product, and the angle between them. Then find the magnitude of the cross product vector."
+**Expected MCP Tools**: `calculate_geometry_3d` (vector_dot_product, vector_cross_product, vector_angle, vector_magnitude)
+**Test ID**: COMPLEX_006
 
 ## Test Execution Instructions
 

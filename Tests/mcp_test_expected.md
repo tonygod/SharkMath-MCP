@@ -173,7 +173,67 @@ This document contains the expected results for all mathematical test prompts de
 - **MCP Tool**: `calculate_statistics(operation='range_stats', numbers=[25,12,38,45,7,33])`
 - **Expected Response Format**: "✅ Min: 7, Max: 45, Range: 38"
 
-### 6. Matrix Operations (manipulate_matrices tool)
+### 9. 3D Geometry & Vector Operations Tests - Expected Results
+
+#### Expected Result GEO3D_001
+**Prompt**: Calculate the distance between points (0,0,0) and (3,4,5)
+```
+✅ Distance between (0, 0, 0) and (3, 4, 5) is 7.07 units
+```
+
+#### Expected Result GEO3D_002
+**Prompt**: Find the midpoint between (-1, 2, -3) and (3, -2, 5)
+```
+✅ Midpoint between (-1, 2, -3) and (3, -2, 5) is (1.0, 0.0, 1.0)
+```
+
+#### Expected Result GEO3D_003
+**Prompt**: Calculate the distance between [10,10,10] and [120,130,140]
+```
+✅ Distance between (10, 10, 10) and (120, 130, 140) is 208.33 units
+```
+
+#### Expected Result GEO3D_004
+**Prompt**: Calculate the magnitude of vector [3, 4, 12]
+```
+✅ Vector magnitude of [3, 4, 12] is 13.0
+```
+
+#### Expected Result GEO3D_005
+**Prompt**: Find the dot product of vectors [1, 2, 3] and [4, 5, 6]
+```
+✅ Dot product of [1, 2, 3] · [4, 5, 6] = 32
+```
+
+#### Expected Result GEO3D_006
+**Prompt**: Calculate the cross product of vectors [2, 1, 0] and [1, 3, 2]
+```
+✅ Cross product of [2, 1, 0] × [1, 3, 2] = [2, -4, 5]
+```
+
+#### Expected Result GEO3D_007
+**Prompt**: Find the angle between vectors [1, 0, 0] and [0, 1, 0] in degrees
+```
+✅ Angle between [1, 0, 0] and [0, 1, 0] is 90.0 degrees (1.57 radians)
+```
+
+#### Expected Result GEO3D_008
+**Prompt**: Calculate the volume of a sphere with radius 5
+```
+✅ Volume of sphere with radius 5 is 523.60 cubic units
+```
+
+#### Expected Result GEO3D_009
+**Prompt**: Find the surface area of a cylinder with radius 3 and height 8
+```
+✅ Surface area of cylinder (r=3, h=8) is 207.35 square units
+```
+
+#### Expected Result GEO3D_010
+**Prompt**: Calculate the volume of a rectangular prism with dimensions 4×6×8
+```
+### 14. Complex Multi-Step Problems - Expected Results
+```
 
 #### Test MATRIX_001: Matrix Addition
 - **Input**: [[1,2],[3,4]] + [[5,6],[7,8]]
@@ -391,6 +451,16 @@ This document contains the expected results for all mathematical test prompts de
 - **MCP Tools**: `manipulate_matrices(operation='add', matrix1=[[2,3],[1,4]], matrix2=[[1,2],[3,1]])`, `manipulate_matrices(operation='determinant', matrix1=[[3,5],[4,5]])`, `format_precision(operation='absolute', value=-5)`, `analyze_numbers(operation='is_perfect_square', value=5)`
 - **Expected Response**: "✅ A+B=[[3,5],[4,5]], det=-5, |det|=5 (not perfect square)"
 
+#### Test COMPLEX_006: 3D Vector Analysis
+- **Input**: vectors u=[2,3,6] and v=[1,4,2], calculate dot product, cross product, angle between them, and magnitude of cross product
+- **Expected Results**:
+  - dot product = 2×1 + 3×4 + 6×2 = 2 + 12 + 12 = 26
+  - cross product = [3×2-6×4, 6×1-2×2, 2×4-3×1] = [6-24, 6-4, 8-3] = [-18, 2, 5]
+  - angle = arccos(26/(7×√21)) = arccos(0.79) = 41.63°
+  - magnitude of cross product = √((-18)²+2²+5²) = √(324+4+25) = √353 = 18.68
+- **MCP Tools**: `calculate_geometry_3d(operation='vector_dot_product')`, `calculate_geometry_3d(operation='vector_cross_product')`, `calculate_geometry_3d(operation='vector_angle')`, `calculate_geometry_3d(operation='vector_magnitude')`
+- **Expected Response**: "✅ Dot product: 26, Cross product: [-18, 2, 5], Angle: 41.63°, Cross magnitude: 18.68"
+
 ## Validation Criteria
 
 ### Accuracy Requirements
@@ -420,7 +490,7 @@ This document contains the expected results for all mathematical test prompts de
 
 ## Complete List of Consolidated Tools
 
-The SharkMath MCP server provides these 15 consolidated tools:
+The SharkMath MCP server provides these 16 consolidated tools:
 
 1. **`calculate_arithmetic`** - Basic arithmetic and power operations (add, subtract, multiply, divide, power, square, cube, square_root, cube_root, nth_root, calculate)
 2. **`calculate_trigonometry`** - Trigonometric functions (sin, cos, tan, asin, acos, atan, atan2) with support for radians/degrees
@@ -432,8 +502,9 @@ The SharkMath MCP server provides these 15 consolidated tools:
 8. **`analyze_numbers`** - Number theory and combinatorics (factorial, gcd, lcm, is_prime, prime_factors, is_perfect_square, fibonacci, permutation, combination)
 9. **`solve_equations`** - Equation solvers (quadratic, linear, compound_interest, simple_interest)
 10. **`calculate_geometry_2d`** - 2D geometry calculations (distance, slope, circle_area, circle_circumference, triangle_area, rectangle_area, rectangle_perimeter, midpoint)
-11. **`manipulate_matrices`** - Matrix operations (add, multiply, determinant, transpose)
-12. **`financial_calculations`** - Financial and business calculations (compound_interest, simple_interest, present_value, future_value, loan_payment, roi, depreciation, mortgage_payment, break_even, npv, irr)
-13. **`computer_science_tools`** - Computer science functions (binary_to_decimal, decimal_to_binary, hex_to_decimal, decimal_to_hex, hash_md5, hash_sha256, big_o_analysis, data_size_convert, ascii_to_char, char_to_ascii, bitwise_and, bitwise_or)
-14. **`data_analysis`** - Advanced data analysis functions (z_score, correlation, quartiles, skewness, kurtosis, coefficient_of_variation, outliers_detection, confidence_interval, normalize_data, iqr_analysis)
-15. **`utility_functions`** - Utility functions (help, get_constants, validate_input, list_operations, format_number)
+11. **`calculate_geometry_3d`** - 3D geometry and vector operations (distance_3d, midpoint_3d, vector_magnitude, vector_dot_product, vector_cross_product, vector_angle, sphere_volume, cylinder_volume, cone_volume, rectangular_prism_volume, sphere_surface_area, cylinder_surface_area, cone_surface_area, rectangular_prism_surface_area)
+12. **`manipulate_matrices`** - Matrix operations (add, multiply, determinant, transpose)
+13. **`financial_calculations`** - Financial and business calculations (compound_interest, simple_interest, present_value, future_value, loan_payment, roi, depreciation, mortgage_payment, break_even, npv, irr)
+14. **`computer_science_tools`** - Computer science functions (binary_to_decimal, decimal_to_binary, hex_to_decimal, decimal_to_hex, hash_md5, hash_sha256, big_o_analysis, data_size_convert, ascii_to_char, char_to_ascii, bitwise_and, bitwise_or)
+15. **`data_analysis`** - Advanced data analysis functions (z_score, correlation, quartiles, skewness, kurtosis, coefficient_of_variation, outliers_detection, confidence_interval, normalize_data, iqr_analysis)
+16. **`utility_functions`** - Utility functions (help, get_constants, validate_input, list_operations, format_number)
