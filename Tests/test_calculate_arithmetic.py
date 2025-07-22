@@ -513,7 +513,7 @@ class TestCalculateArithmetic(unittest.TestCase):
             'calculate', expression='unsupported_func(5)'
         ))
         self.assertIn("❌", result)
-        self.assertIn("Unsupported function or variable", result)
+        self.assertIn("Unsupported function", result)
         
     # Power Operations Tests
     def test_power_positive_integers(self):

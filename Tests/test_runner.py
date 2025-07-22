@@ -66,19 +66,21 @@ class TestRunner:
                 self.total_tests += 1
                 
                 try:
+                    # Call setUp if it exists to properly initialize the test instance
+                    if hasattr(test_class, 'setUp'):
+                        test_class.setUp()
+                    
                     # Run the test
                     if asyncio.iscoroutinefunction(test_method):
                         result = asyncio.run(test_method())
                     else:
                         result = test_method()
                     
-                    if result:
-                        print(f"✅ {test_method_name}")
-                        class_passed += 1
-                        self.passed_tests += 1
-                    else:
-                        print(f"❌ {test_method_name}")
-                        self.failed_tests += 1
+                    # Unittest test methods don't return values, they use assertions
+                    # If we get here without exception, the test passed
+                    print(f"✅ {test_method_name}")
+                    class_passed += 1
+                    self.passed_tests += 1
                         
                 except Exception as e:
                     print(f"❌ {test_method_name} - Exception: {str(e)}")
