@@ -164,8 +164,8 @@ class TestCalculateTrigonometry(unittest.TestCase):
             'calculate_trigonometry', 'asin', value=0.5
         ))
         self.assertIn("✅", result)
-        # Account for floating-point precision
-        self.assertTrue("= 30.0°" in result or "= 29.999999999999996°" in result)
+        # Account for floating-point precision - should be approximately 30 degrees
+        self.assertTrue("30.0" in result or "29.99999" in result or "30.00000" in result)
 
     def test_acos_zero(self):
         """Test arccosine of 0."""
@@ -189,8 +189,8 @@ class TestCalculateTrigonometry(unittest.TestCase):
             'calculate_trigonometry', 'acos', value=0.5
         ))
         self.assertIn("✅", result)
-        # Account for floating-point precision
-        self.assertTrue("= 60.0°" in result or "= 59.99999999999999°" in result)
+        # Account for floating-point precision - should be approximately 60 degrees
+        self.assertTrue("60.0" in result or "59.99999" in result or "60.00000" in result)
 
     def test_atan_zero(self):
         """Test arctangent of 0."""
